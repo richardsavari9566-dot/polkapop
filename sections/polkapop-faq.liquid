@@ -1,0 +1,55 @@
+<section id="faq" class="pp-wrap pp-section">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+      <p class="pp-copy">{{ section.settings.text }}</p>
+    </div>
+    <div class="pp-faq-list">
+      {% for block in section.blocks %}
+        <details {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %}>
+          <summary><span>{{ block.settings.question }}</span><span class="pp-faq-arrow" aria-hidden="true"></span></summary>
+          <p>{{ block.settings.answer }}</p>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.pp-faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:16px;list-style:none}
+.pp-faq-list summary::-webkit-details-marker{display:none}
+.pp-faq-arrow{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .22s ease;flex:0 0 auto}
+.pp-faq-list details[open] .pp-faq-arrow{transform:rotate(225deg)}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Polka Pop FAQ",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "FAQ" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Questions Before You Pop" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Keep answers short so shoppers can make a decision quickly." }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Is Polka Pop zero sugar?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "Yes, Polka Pop is designed as a zero sugar sparkling water refreshment." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "Is Polka Pop zero sugar?", "answer": "Yes, Polka Pop is designed as a zero sugar sparkling water refreshment." } },
+        { "type": "faq", "settings": { "question": "How should I serve it?", "answer": "Serve chilled for the best fizz and flavour." } },
+        { "type": "faq", "settings": { "question": "Which flavours are available?", "answer": "Current homepage flavours include Cranberry, Lemon Lime, Orange and Peach." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

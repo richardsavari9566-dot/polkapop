@@ -1,0 +1,810 @@
+{% comment %}
+  Polka Pop product page converted from the provided live prototype.
+{% endcomment %}
+<style>
+#polkapop-product-{{ section.id }} {
+      --brand:#ea4b78;
+      --brand-dark:#d93f6b;
+      --text:#111;
+      --muted:#666;
+      --line:#ebe4df;
+      --soft:#faf7f5;
+      --bg:#fff;
+      --shadow:0 14px 38px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+body:has(#polkapop-product-{{ section.id }}) {margin:0;font-family:Inter, Arial, sans-serif;background:#fff;color:var(--text);padding-bottom:78px}
+    .topbar{
+      height:34px;background:linear-gradient(90deg,#ffe4ee,#fff7fa);
+      display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700
+    }
+    .pdp-local-header{
+      height:58px;display:flex;align-items:center;justify-content:space-between;
+      max-width:1180px;margin:0 auto;padding:0 24px;border-bottom:1px solid rgba(13,113,70,.1);background:#fff;
+      position:sticky;top:0;z-index:20
+    }
+    .logo{font-family:Georgia,serif;font-size:26px;font-weight:950;color:#0d7146;letter-spacing:-.03em;text-decoration:none}
+    .pdp-local-nav{display:flex;gap:24px;font-size:13px;font-weight:900;color:#153e2a}
+    .pdp-local-nav a{text-decoration:none;color:inherit;white-space:nowrap}
+    .icons{display:flex;gap:12px;font-size:20px;align-items:center}
+    .cart-badge{position:relative;color:#0d7146;font-size:20px;font-weight:900;text-decoration:none}
+    .cart-badge span{
+      position:absolute;top:-9px;right:-12px;background:var(--brand);color:#fff;border-radius:50%;
+      width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800
+    }
+    .header-shop{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#0d7146;color:#fff;text-decoration:none;font-size:14px;font-weight:900;line-height:1;padding:15px 24px;box-shadow:0 6px 0 #06482e}
+
+    .pdp-main{max-width:1260px;margin:auto;padding:22px 22px 0}
+    .pdp{
+      display:grid;grid-template-columns:520px 1fr;gap:54px;align-items:start;min-height:calc(100vh - 118px)
+    }
+    .gallery{display:grid;grid-template-columns:74px 1fr;gap:18px;position:sticky;top:110px}
+    .thumbs{display:flex;flex-direction:column;gap:12px}
+    .thumb{
+      width:66px;height:76px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden;
+      cursor:pointer;padding:0;display:block
+    }
+    .thumb.active{border:2px solid var(--brand)}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .main-image{
+      border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px #f1e9e3;
+      overflow:hidden;display:flex;align-items:center;justify-content:center;
+      width:100%;
+      aspect-ratio:1/1;
+      max-width:520px;
+      min-height:0;
+    }
+    .main-image img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+    .product-info{padding-top:2px}
+    .rating{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:14px}
+    .stars{letter-spacing:2px;font-size:18px}
+    h1{font-size:40px;line-height:1.05;margin:0 0 10px;font-weight:800;letter-spacing:-1px}
+    .subtitle{font-size:18px;margin-bottom:14px}
+    .desc{font-size:14px;line-height:1.42;color:#222;margin-bottom:12px;max-width:540px}
+    hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+    .label{font-size:13px;font-weight:800;margin-bottom:8px}
+
+    .options{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:10px;margin-bottom:10px;max-width:420px}
+    .opt{
+      height:46px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;
+      font-size:13px;font-weight:900;position:relative;transition:.2s;padding:0 8px
+    }
+    .opt:hover,.opt.active{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand);background:#fff9fb}
+    .tag{
+      position:absolute;top:-16px;right:10px;color:var(--brand);background:#fff2f7;
+      border-radius:8px 8px 0 0;font-size:10px;padding:4px 10px;font-weight:900
+    }
+
+    .price-row{
+      display:flex;align-items:flex-start;gap:12px;background:transparent;
+      border:0;border-radius:0;padding:0;margin:2px 0 10px;min-height:0;
+      max-width:420px
+    }
+    .price-mrp{padding-top:8px;color:#888;font-size:18px;font-weight:900;text-decoration:line-through;text-decoration-thickness:2px}
+    .price-main{display:flex;flex-direction:column;align-items:flex-start}
+    .price-right{color:#ff7a00;font-size:34px;line-height:.95;font-weight:950;letter-spacing:0}
+    .price-tax{margin-top:3px;color:#8a8a8a;font-size:12px;font-weight:800}
+    .price-divider{width:1px;height:36px;background:#d6d6d6;margin-top:4px}
+
+    .cta-row{display:grid;grid-template-columns:94px;gap:12px;align-items:center}
+    .qty{
+      height:34px;border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;
+      justify-content:space-around;font-size:14px
+    }
+    .qty button{border:0;background:none;font-size:17px;cursor:pointer;width:28px}
+    .btn{
+      height:42px;border-radius:7px;font-weight:800;cursor:pointer;font-size:13px;letter-spacing:.2px;transition:.2s
+    }
+    .btn-cart{background:#fff;border:2px solid var(--brand);color:#111}
+    .btn-buy{background:var(--brand);border:2px solid var(--brand);color:#fff}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(234,75,120,.18)}
+
+    .sticky-buy-bar{
+      position:fixed;left:0;right:0;bottom:0;z-index:60;min-height:66px;background:#fff;
+      border-top:1px solid #ececec;box-shadow:0 -10px 24px rgba(0,0,0,.07);
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+      padding:8px clamp(18px,5vw,70px);
+    }
+    .sticky-product{display:flex;align-items:center;gap:12px;min-width:0}
+    .sticky-product img{width:50px;height:50px;object-fit:cover;border-radius:7px;background:#ffe4ee;flex:0 0 auto}
+    .sticky-title{
+      font-size:15px;line-height:1.2;font-weight:900;color:#000;white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis;max-width:520px;
+    }
+    .sticky-sub{margin-top:2px;font-size:11px;color:#666;font-weight:700}
+    .sticky-actions{display:grid;grid-template-columns:minmax(150px,210px) minmax(150px,210px);gap:14px;flex:0 0 auto}
+    .sticky-btn{height:42px;border-radius:0;font-size:14px;font-weight:950;letter-spacing:.02em;cursor:pointer;transition:.2s ease}
+    .sticky-cart{background:#fff;color:#000;border:2px solid #000}
+    .sticky-buy{background:#000;color:#fff;border:2px solid #000}
+    .sticky-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.12)}
+
+    .utility-block{margin-top:16px;display:grid;gap:14px}
+    .checker{
+      border:1px solid var(--line);border-radius:10px;padding:16px;background:#fff
+    }
+    .checker-title{font-size:14px;font-weight:800;margin-bottom:10px}
+    .checker-row{display:flex;gap:10px}
+    .checker input{
+      flex:1;height:44px;border:1px solid var(--line);border-radius:8px;padding:0 14px;font-size:14px
+    }
+    .checker button{
+      height:44px;padding:0 18px;border:0;border-radius:8px;background:#111;color:#fff;font-weight:700;cursor:pointer
+    }
+    .checker-result{margin-top:10px;font-size:13px;color:#2a7b41;display:none}
+    .availability{
+      border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff
+    }
+    .availability-title{font-size:14px;font-weight:800;margin-bottom:12px}
+    .platforms{display:flex;flex-wrap:wrap;gap:10px}
+    .pill{
+      min-width:104px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:16px;font-weight:950;border:1px solid var(--line);background:#fafafa;letter-spacing:-.02em
+    }
+    .pill.blinkit{background:#fff200;color:#111}
+    .pill.zepto{background:#4b148c;color:#fff}
+
+    .feature-strip{
+      margin:16px 0 0;
+      padding:18px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      text-align:center;
+      align-items:start;
+    }
+    .feature{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:14px;
+      padding:16px 12px 14px;
+      font-size:13px;
+      line-height:1.35;
+      cursor:pointer;
+      transition:.22s ease;
+      min-height:118px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .feature:hover,
+    .feature.active{
+      transform:translateY(-2px);
+      border-color:#f3bfd0;
+      box-shadow:0 10px 24px rgba(234,75,120,.12);
+      background:#fff8fb;
+    }
+    .feature .ico{
+      font-size:26px;
+      color:var(--brand);
+      display:block;
+      margin-bottom:8px;
+      line-height:1;
+    }
+    .feature-title{
+      font-weight:700;
+      font-size:12px;
+      line-height:1.45;
+      margin-bottom:0;
+    }
+    .feature-desc{
+      max-height:0;
+      overflow:hidden;
+      opacity:0;
+      transition:max-height .25s ease, opacity .25s ease, margin-top .25s ease;
+      font-size:11px;
+      color:#555;
+      line-height:1.45;
+      margin-top:0;
+    }
+    .feature.active .feature-desc{
+      max-height:60px;
+      opacity:1;
+      margin-top:8px;
+    }
+
+    .content-row{
+      display:grid;grid-template-columns:1fr 520px;gap:70px;padding:34px 20px 38px;border-bottom:1px solid var(--line)
+    }
+    .tabs{display:flex;gap:34px;border-bottom:1px solid var(--line);margin-bottom:24px}
+    .tab{padding:0 0 16px;cursor:pointer;font-size:15px}
+    .tab.active{color:var(--brand);border-bottom:3px solid var(--brand);font-weight:800}
+    .tab-panel{font-size:15px;line-height:1.65}
+    .tab-panel ul{padding-left:20px}
+    .details-video{
+      height:360px;
+      border-radius:10px;
+      overflow:hidden;
+      background:#111;
+      position:relative;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .details-video img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.82;
+      transform:scale(1.02);
+    }
+    .video-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:12px;
+      color:#fff;
+      background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35));
+      text-align:center;
+    }
+    .play-btn{
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      background:var(--brand);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      padding-left:5px;
+      box-shadow:0 10px 28px rgba(0,0,0,.25);
+    }
+    .video-title{
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .video-sub{
+      font-size:13px;
+      opacity:.9;
+    }
+
+    .reviews-section{padding:34px 0 30px;border-bottom:1px solid var(--line)}
+    .section-title{text-align:center;font-size:22px;font-weight:800;margin-bottom:22px}
+    .review-layout{display:grid;grid-template-columns:280px 1fr;gap:30px;align-items:start}
+    .review-summary{background:#fff8fb;border:1px solid #f1dbe5;border-radius:14px;padding:24px;box-shadow:var(--shadow)}
+    .big-rating{font-size:52px;font-weight:800;line-height:1;margin-bottom:8px}
+    .review-summary .stars{font-size:20px}
+    .review-summary p{font-size:13px;color:#555;line-height:1.5}
+    .review-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .review-card{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}
+    .review-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .review-name{font-weight:800;font-size:14px}
+    .review-text{font-size:14px;line-height:1.55;color:#333}
+    .review-tag{display:inline-block;margin-top:10px;font-size:12px;background:#fff2f7;color:var(--brand);padding:6px 10px;border-radius:999px;font-weight:700}
+
+    .reco{padding:28px 0 36px}
+    .cards{display:grid;grid-template-columns:40px repeat(4,1fr) 40px;gap:26px;align-items:center}
+    .arrow{font-size:38px;text-align:center;cursor:pointer}
+    .card{
+      background:#fff8f4;
+      border-radius:12px;
+      padding:18px 18px 16px;
+      position:relative;
+      min-height:250px;
+      border:1px solid #f1e6df;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:.22s ease;
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 26px rgba(234,75,120,.12);
+      border-color:#f2bfd0;
+    }
+    .related-img-wrap{
+      height:155px;
+      background:#fff;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:14px;
+      overflow:hidden;
+    }
+    .related-img-wrap img{
+      max-height:145px;
+      max-width:90%;
+      object-fit:contain;
+      display:block;
+    }
+    .card-title{
+      font-size:16px;
+      font-weight:800;
+      margin-bottom:5px;
+    }
+    .card-sub{
+      font-size:13px;
+      color:#666;
+      line-height:1.35;
+      margin-bottom:12px;
+    }
+    .card-price{
+      font-size:18px;
+      font-weight:800;
+    }
+    .pdp-blog{
+      margin:34px 0 58px;
+      padding:34px;
+      border-radius:18px;
+      background:#fbfff0;
+      border:1px solid #e5edd6;
+    }
+    .pdp-blog-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:20px;
+    }
+    .pdp-blog-kicker{color:#0d7146;font-size:13px;font-weight:900;margin-bottom:6px}
+    .pdp-blog h2{margin:0;font-family:Georgia,serif;font-size:32px;line-height:1;color:#21110d}
+    .pdp-blog-all{
+      display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#0d7146;color:#fff;
+      text-decoration:none;font-size:13px;font-weight:900;padding:12px 18px;box-shadow:0 5px 0 #06482e;white-space:nowrap
+    }
+    .pdp-blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .pdp-blog-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #edf0df;box-shadow:0 14px 28px rgba(6,72,46,.07)}
+    .pdp-blog-card img{width:100%;aspect-ratio:1.7/1;object-fit:cover;display:block}
+    .pdp-blog-body{padding:16px}
+    .pdp-blog-pill{display:inline-flex;border-radius:999px;background:#d9ff48;color:#0d7146;font-size:11px;font-weight:900;padding:5px 10px;margin-bottom:10px}
+    .pdp-blog-card h3{font-family:Georgia,serif;font-size:20px;line-height:1.05;margin:0 0 10px;color:#21110d}
+    .pdp-blog-card a{color:#0d7146;font-size:13px;font-weight:900;text-decoration:none}
+    .plus{
+      position:absolute;right:14px;bottom:14px;width:34px;height:34px;border:1px solid var(--brand);border-radius:50%;
+      color:var(--brand);background:#fff;font-size:24px;cursor:pointer
+    }
+
+    footer{
+      border-top:1px solid var(--line);padding:30px 40px;display:grid;grid-template-columns:repeat(4,1fr);
+      gap:20px;font-size:14px;max-width:1260px;margin:auto
+    }
+    .toast{
+      position:fixed;right:24px;bottom:86px;background:#111;color:#fff;padding:14px 18px;border-radius:10px;
+      box-shadow:var(--shadow);opacity:0;transform:translateY(20px);pointer-events:none;transition:.25s;z-index:80;
+      display:flex;align-items:center;gap:14px;font-size:14px;font-weight:800
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+    .toast a{color:#d9ff48;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;pointer-events:auto}
+
+    @media(max-width:980px){
+      .pdp-local-header{padding:0 18px} .pdp-local-nav{display:none} .logo{font-size:28px}.header-shop{display:none}
+      .pdp-main{padding:18px 14px 0}
+      .pdp{grid-template-columns:1fr;gap:24px} .main-image{max-width:100%}
+      .gallery{grid-template-columns:1fr;position:static}
+      .thumbs{flex-direction:row;overflow:auto}
+      .product-info{padding-top:0}
+      h1{font-size:34px}
+      .options{grid-template-columns:repeat(2,1fr)}
+      .cta-row{grid-template-columns:94px}
+      .sticky-buy-bar{min-height:62px;gap:10px;padding:8px 12px}
+      .sticky-product{gap:10px}
+      .sticky-product img{width:44px;height:44px}
+      .sticky-title{font-size:13px;max-width:240px}
+      .sticky-sub{display:none}
+      .sticky-actions{grid-template-columns:1fr 1fr;gap:8px;flex:1}
+      .sticky-btn{height:40px;font-size:12px}
+      .feature-strip{grid-template-columns:repeat(2,1fr);gap:12px}
+      .content-row{grid-template-columns:1fr;gap:28px}
+      .review-layout{grid-template-columns:1fr}
+      .review-cards{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .arrow{display:none}
+      .pdp-blog{padding:24px;margin-bottom:36px}
+      .pdp-blog-head{display:block}
+      .pdp-blog-all{margin-top:16px}
+      .pdp-blog-grid{grid-template-columns:1fr}
+      footer{grid-template-columns:1fr 1fr;padding:24px 18px}
+    }
+    @media(max-width:640px){
+      body:has(#polkapop-product-{{ section.id }}){padding-bottom:110px}
+      .sticky-buy-bar{display:grid;grid-template-columns:1fr;gap:10px}
+      .sticky-actions{width:100%}
+      .sticky-product img{width:42px;height:42px}
+    }
+</style>
+
+<div id="polkapop-product-{{ section.id }}" class="polkapop-pdp-prototype">
+  <main class="pdp-main">
+    <section class="pdp">
+      <div class="gallery">
+        <div class="thumbs">
+          <button class="thumb active" data-full="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-01.png?v=1783570751"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-01.png?v=1783570751" alt="Polka Pop main" /></button>
+          <button class="thumb" data-full="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-02.png?v=1783570822"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-02.png?v=1783570822" alt="Polka Pop group image" /></button>
+          <button class="thumb" data-full="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-03.png?v=1783570949"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-03.png?v=1783570949" alt="Polka Pop details image" /></button>
+          <button class="thumb" data-full="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-04.png?v=1783570995"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-04.png?v=1783570995" alt="Polka Pop nutrition image" /></button>
+        </div>
+        <div class="main-image">
+          <img id="mainProductImage" width="5000" height="5000" src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-01.png?v=1783570751" alt="Polka Pop Cranberry main product image" />
+        </div>
+      </div>
+
+      <div class="product-info">
+        <div class="rating"><span class="stars">★★★★★</span> <span>4.8 (126 reviews)</span></div>
+        <h1>Polka Pop Cranberry</h1>
+        <div class="subtitle">Premium Sparkling Water</div>
+        <p class="desc">A vibrant cranberry sparkling water with zero sugar, zero calories, and a crisp refreshing taste. Lightly sparkling, naturally flavoured, and best served chilled.</p>
+
+        <hr>
+        <div class="label">Pack Size</div>
+        <div class="options" id="packOptions">
+          <button class="opt active" data-price="360" data-mrp="430">12 Pack</button>
+          <button class="opt" data-price="680" data-mrp="820"><span class="tag">Best Value</span>24 Pack</button>
+        </div>
+
+        <div class="price-row">
+          <div class="price-mrp" id="displayMrp">₹430</div>
+          <div class="price-main">
+            <div class="price-right" id="displayPrice">₹360</div>
+            <div class="price-tax">MRP Incl. of all taxes</div>
+          </div>
+          <div class="price-divider"></div>
+        </div>
+
+        <div class="cta-row">
+          <div class="qty">
+            <button id="minus">−</button>
+            <span id="qty">1</span>
+            <button id="plus">+</button>
+          </div>
+        </div>
+
+        <div class="utility-block">
+          <div class="checker">
+            <div class="checker-title">Check pincode availability</div>
+            <div class="checker-row">
+              <input id="pincodeInput" type="text" placeholder="Enter your pincode" maxlength="6" />
+              <button id="checkPincode">Check</button>
+            </div>
+            <div class="checker-result" id="pincodeResult">Available for delivery to your location.</div>
+          </div>
+
+          <div class="availability">
+            <div class="availability-title">Also available on</div>
+            <div class="platforms">
+              <div class="pill blinkit">blinkit</div>
+              <div class="pill zepto">zepto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-strip">
+      <div class="feature active">
+        <span class="ico">✦</span>
+        <div class="feature-title">Lightly<br>Sparkling</div>
+        <div class="feature-desc">A crisp fizz that keeps every sip refreshing and easy to enjoy.</div>
+      </div>
+      <div class="feature">
+        <span class="ico">❋</span>
+        <div class="feature-title">Naturally<br>Flavoured</div>
+        <div class="feature-desc">Refreshing cranberry-inspired taste with a clean, premium feel.</div>
+      </div>
+      <div class="feature">
+        <span class="ico">◌</span>
+        <div class="feature-title">Zero Sugar<br>Zero Calories</div>
+        <div class="feature-desc">Guilt-free refreshment designed for mindful everyday drinking.</div>
+      </div>
+      <div class="feature">
+        <span class="ico">❄</span>
+        <div class="feature-title">Best Served<br>Chilled</div>
+        <div class="feature-desc">Enjoy it cold for the most vibrant, sparkling taste experience.</div>
+      </div>
+    </section>
+
+    <section class="content-row">
+      <div>
+        <div class="tabs">
+          <div class="tab active" data-tab="details">Details</div>
+          <div class="tab" data-tab="ingredients">Ingredients</div>
+          <div class="tab" data-tab="nutrition">Nutrition</div>
+          <div class="tab" data-tab="why">Why You'll Love It</div>
+        </div>
+        <div class="tab-panel" id="tabPanel">
+          <p>Polka Pop Cranberry is a crisp and flavourful sparkling water designed for guilt-free refreshment. It brings together refreshing fizz, a naturally inspired cranberry flavour, and a clean label experience.</p>
+          <ul>
+            <li>Premium sparkling water</li>
+            <li>Zero sugar and zero calories</li>
+            <li>Light, crisp, and refreshing</li>
+            <li>Convenient 300 ml serving</li>
+            <li>Perfect for everyday sipping</li>
+          </ul>
+        </div>
+      </div>
+      <div class="details-video" id="detailsVideo">
+        <img id="supportImage" src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-04.png?v=1783570995" alt="Polka Pop product video thumbnail" />
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+          <div class="video-title">Watch Product Details</div>
+          <div class="video-sub">Ingredients • Nutrition • Zero Sugar Story</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews-section">
+      <div class="section-title">Customer Reviews</div>
+      <div class="review-layout">
+        <div class="review-summary">
+          <div class="big-rating">4.8</div>
+          <div class="stars">★★★★★</div>
+          <p>Based on 126 verified reviews. Customers love the refreshing cranberry taste, the premium packaging, and the zero sugar profile.</p>
+        </div>
+        <div class="review-cards">
+          <div class="review-card">
+            <div class="review-head">
+              <div class="review-name">Ananya R.</div>
+              <div>★★★★★</div>
+            </div>
+            <div class="review-text">Loved how crisp and refreshing this tastes. It feels like a premium drink but still light and guilt-free.</div>
+            <div class="review-tag">Best for daily refreshment</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="review-name">Karthik S.</div>
+              <div>★★★★★</div>
+            </div>
+            <div class="review-text">The cranberry flavour is really nice and not overpowering. Great chilled, especially as an alternative to sugary beverages.</div>
+            <div class="review-tag">Zero sugar favorite</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="review-name">Megha P.</div>
+              <div>★★★★☆</div>
+            </div>
+            <div class="review-text">Packaging looks super clean and premium. I also like that it’s available on quick-commerce apps when I need it fast.</div>
+            <div class="review-tag">Premium packaging</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reco">
+      <div class="section-title">You May Also Like</div>
+      <div class="cards">
+        <div class="arrow">‹</div>
+
+        <div class="card">
+          <div>
+            <div class="related-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-05.jpg?v=1783571132" alt="Polka Pop Peach" /></div>
+            <div class="card-title">Peach</div>
+            <div class="card-sub">Naturally flavoured premium sparkling water.</div>
+            <div class="card-price">₹40</div>
+          </div>
+          <button class="plus">+</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="related-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-06.png?v=1783571176" alt="Polka Pop Lemon Lime" /></div>
+            <div class="card-title">Lemon Lime</div>
+            <div class="card-sub">Zesty, crisp and refreshing sparkling flavour.</div>
+            <div class="card-price">₹40</div>
+          </div>
+          <button class="plus">+</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="related-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-07.png?v=1783571193" alt="Polka Pop Orange" /></div>
+            <div class="card-title">Orange</div>
+            <div class="card-sub">Citrusy sparkle with a bold orange twist.</div>
+            <div class="card-price">₹40</div>
+          </div>
+          <button class="plus">+</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="related-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-06.png?v=1783571176" alt="Polka Pop Lemon Lime 4 Pack" /></div>
+            <div class="card-title">Lemon Lime 4 Pack</div>
+            <div class="card-sub">Perfect value pack for regular refreshment.</div>
+            <div class="card-price">₹140</div>
+          </div>
+          <button class="plus">+</button>
+        </div>
+
+        <div class="arrow">›</div>
+      </div>
+    </section>
+
+    <section class="pdp-blog">
+      <div class="pdp-blog-head">
+        <div>
+          <div class="pdp-blog-kicker">From the Polka Pop Journal</div>
+          <h2>Fresh Ways to Enjoy Cranberry</h2>
+        </div>
+        <a class="pdp-blog-all" href="/blogs/news">View All Blog</a>
+      </div>
+      <div class="pdp-blog-grid">
+        <article class="pdp-blog-card">
+          <img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098" alt="Polka Pop flavours on ice" loading="lazy">
+          <div class="pdp-blog-body">
+            <span class="pdp-blog-pill">Recipes</span>
+            <h3>Cranberry Mint Cooler for Weekend Sipping</h3>
+            <a href="/blogs/news">Read More</a>
+          </div>
+        </article>
+        <article class="pdp-blog-card">
+          <img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098" alt="Polka Pop bottles and fruit" loading="lazy">
+          <div class="pdp-blog-body">
+            <span class="pdp-blog-pill">Pairing</span>
+            <h3>What to Pair with a Tart Cranberry Fizz</h3>
+            <a href="/blogs/news">Read More</a>
+          </div>
+        </article>
+        <article class="pdp-blog-card">
+          <img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098" alt="Polka Pop sparkling water range" loading="lazy">
+          <div class="pdp-blog-body">
+            <span class="pdp-blog-pill">Zero Sugar</span>
+            <h3>Why Zero Sugar Sparkling Water Works Daily</h3>
+            <a href="/blogs/news">Read More</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  
+
+  <div class="sticky-buy-bar" aria-label="Sticky purchase actions">
+    <div class="sticky-product">
+      <img src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-01.png?v=1783570751" alt="Polka Pop Cranberry" width="96" height="96" loading="lazy">
+      <div>
+        <div class="sticky-title">Polka Pop Cranberry</div>
+        <div class="sticky-sub">Premium Sparkling Water</div>
+      </div>
+    </div>
+    <div class="sticky-actions">
+      <button class="sticky-btn sticky-cart" id="addCart">ADD TO CART</button>
+      <button class="sticky-btn sticky-buy" id="buyNow">BUY NOW</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <span id="toastMessage">Product added to cart</span>
+    <a href="/cart">View cart</a>
+  </div>
+</div>
+
+<script>
+(function(){
+const packOptions = document.querySelectorAll('.opt');
+    const displayPrice = document.getElementById('displayPrice');
+    const displayMrp = document.getElementById('displayMrp');
+    const qtyEl = document.getElementById('qty');
+    const cartCount = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    const mainProductImage = document.getElementById('mainProductImage');
+    const supportImage = document.getElementById('supportImage');
+    let qty = 1;
+    let price = 360;
+
+    function money(v){ return '₹' + Number(v).toFixed(0); }
+
+    packOptions.forEach(btn => {
+      btn.addEventListener('click', () => {
+        packOptions.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        price = Number(btn.dataset.price);
+        displayPrice.textContent = money(price);
+        displayMrp.textContent = money(btn.dataset.mrp);
+      });
+    });
+
+    document.getElementById('minus').onclick = () => {
+      qty = Math.max(1, qty - 1);
+      qtyEl.textContent = qty;
+    };
+
+    document.getElementById('plus').onclick = () => {
+      qty++;
+      qtyEl.textContent = qty;
+    };
+
+    function showToast(msg){
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    document.getElementById('addCart').onclick = () => {
+      if (cartCount) cartCount.textContent = Number(cartCount.textContent) + qty;
+      showToast('Product added to cart');
+    };
+
+    document.getElementById('buyNow').onclick = () => {
+      const total = price * qty;
+      showToast('Checkout started • Total ' + money(total));
+    };
+
+    document.querySelectorAll('.plus').forEach(btn => {
+      btn.onclick = () => {
+        if (cartCount) cartCount.textContent = Number(cartCount.textContent) + 1;
+        showToast('Added to cart');
+      };
+    });
+
+    document.querySelectorAll('.thumb').forEach((thumb, idx) => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        const full = thumb.dataset.full;
+        mainProductImage.src = full;
+        if (idx === 0) supportImage.src = 'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-04.png?v=1783570995';
+        if (idx === 1) supportImage.src = 'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-03.png?v=1783570949';
+        if (idx === 2) supportImage.src = 'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-04.png?v=1783570995';
+        if (idx === 3) supportImage.src = 'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-pdp-03.png?v=1783570949';
+      });
+    });
+
+    const tabs = {
+      details: `<p>Polka Pop Cranberry is a crisp and flavourful sparkling water designed for guilt-free refreshment. It brings together refreshing fizz, a naturally inspired cranberry flavour, and a clean label experience.</p><ul><li>Premium sparkling water</li><li>Zero sugar and zero calories</li><li>Light, crisp, and refreshing</li><li>Convenient 300 ml serving</li><li>Perfect for everyday sipping</li></ul>`,
+      ingredients: `<p>Ingredients: Carbonated Water, Natural Cranberry Flavour (Flavouring Substance).</p><ul><li>Simple ingredient profile</li><li>Clean and transparent formulation</li><li>Easy everyday refreshment</li></ul>`,
+      nutrition: `<p>Nutrition highlights: 0 calories, 0g sugar, 0g fat, 0mg sodium. One serving = 300 ml.</p><ul><li>Guilt-free refreshment</li><li>No added sugar load</li><li>Fits modern low-calorie lifestyles</li></ul>`,
+      why: `<p>Why you'll love it: premium pack appeal, crisp taste, convenient format, and quick-commerce availability.</p><ul><li>Great soda alternative</li><li>Best served chilled</li><li>Refreshing for any time of day</li></ul>`
+    };
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tabPanel').innerHTML = tabs[tab.dataset.tab];
+      });
+    });
+
+
+    const detailsVideo = document.getElementById('detailsVideo');
+    if (detailsVideo) {
+      detailsVideo.addEventListener('click', () => {
+        showToast('Product details video opened');
+      });
+    }
+
+
+    document.querySelectorAll('.feature').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.feature').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      });
+    });
+
+    document.getElementById('checkPincode').onclick = () => {
+      const val = document.getElementById('pincodeInput').value.trim();
+      const result = document.getElementById('pincodeResult');
+      result.style.display = 'block';
+      if (/^[0-9]{6}$/.test(val)) {
+        result.textContent = 'Available for delivery to pincode ' + val + '.';
+        result.style.color = '#2a7b41';
+      } else {
+        result.textContent = 'Please enter a valid 6-digit pincode.';
+        result.style.color = '#c23b3b';
+      }
+    };
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Polka Pop product page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Polka Pop product page"
+    }
+  ]
+}
+{% endschema %}

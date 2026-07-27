@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "polkapop_style_base": {
+      "type": "polkapop-style-base"
+    },
+    "polkapop_strip": {
+      "type": "polkapop-announcement-strip"
+    },
+    "polkapop_header": {
+      "type": "polkapop-header-menu",
+      "settings": {
+        "logo_text": "PolkaPop",
+        "logo_link": "/",
+        "cart_symbol": "Cart",
+        "cart_link": "/cart",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all"
+      },
+      "blocks": {
+        "about": {
+          "type": "menu_link",
+          "settings": {
+            "label": "About us",
+            "link": "/#about"
+          }
+        },
+        "collections": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Collections",
+            "link": "/collections/all"
+          }
+        },
+        "resources": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Resources",
+            "link": "/#resources"
+          }
+        },
+        "combos": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Combos",
+            "link": "/#packs"
+          }
+        },
+        "gift_packs": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Gift Packs",
+            "link": "/#gift-packs"
+          }
+        }
+      },
+      "block_order": [
+        "about",
+        "collections",
+        "resources",
+        "combos",
+        "gift_packs"
+      ]
+    },
+    "polkapop_product": {
+      "type": "polkapop-product-page"
+    },
+    "polkapop_footer": {
+      "type": "polkapop-footer-custom"
+    }
+  },
+  "order": [
+    "polkapop_style_base",
+    "polkapop_strip",
+    "polkapop_header",
+    "polkapop_product",
+    "polkapop_footer"
+  ]
+}

@@ -1,0 +1,40 @@
+<section id="polkapop-announcement-{{ section.id }}" class="pp-wrap">
+  <div class="pp-marquee" style="--speed: {{ section.settings.speed }}s;">
+    <div class="pp-marquee-track">
+      {% for i in (1..2) %}
+        {% for block in section.blocks %}
+          <span class="pp-marquee-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Polka Pop running strip",
+  "settings": [
+    { "type": "range", "id": "speed", "label": "Animation speed", "min": 8, "max": 60, "step": 1, "unit": "s", "default": 22 }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Strip message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Zero sugar sparkling water" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop running strip",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Premium sparkling water" } },
+        { "type": "message", "settings": { "text": "Zero sugar" } },
+        { "type": "message", "settings": { "text": "Serve chilled" } },
+        { "type": "message", "settings": { "text": "Cranberry, Lemon Lime, Orange and Peach" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

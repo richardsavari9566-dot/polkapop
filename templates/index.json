@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "prototype_base": {
+      "type": "polkapop-prototype-base"
+    },
+    "prototype_shell": {
+      "type": "polkapop-prototype-shell"
+    },
+    "prototype_hero": {
+      "type": "polkapop-prototype-hero"
+    },
+    "prototype_shop": {
+      "type": "polkapop-prototype-shop"
+    },
+    "prototype_why": {
+      "type": "polkapop-prototype-why"
+    },
+    "prototype_quick": {
+      "type": "polkapop-prototype-quick"
+    },
+    "prototype_reviews": {
+      "type": "polkapop-prototype-reviews"
+    },
+    "prototype_recipes": {
+      "type": "polkapop-prototype-recipes"
+    },
+    "prototype_faq": {
+      "type": "polkapop-prototype-faq"
+    },
+    "prototype_blog": {
+      "type": "polkapop-prototype-blog"
+    },
+    "prototype_footer": {
+      "type": "polkapop-prototype-footer"
+    }
+  },
+  "order": [
+    "prototype_base",
+    "prototype_shell",
+    "prototype_hero",
+    "prototype_shop",
+    "prototype_why",
+    "prototype_quick",
+    "prototype_reviews",
+    "prototype_recipes",
+    "prototype_faq",
+    "prototype_blog",
+    "prototype_footer"
+  ]
+}

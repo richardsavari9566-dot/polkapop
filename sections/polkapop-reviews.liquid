@@ -1,0 +1,55 @@
+<section id="reviews" class="pp-wrap pp-section green">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+      <p class="pp-copy">{{ section.settings.text }}</p>
+    </div>
+    <div class="pp-grid pp-review-grid">
+      {% for block in section.blocks %}
+        <article class="pp-card pp-review" {{ block.shopify_attributes }}>
+          <div class="pp-stars">{{ block.settings.stars }}</div>
+          <p class="quote">{{ block.settings.quote }}</p>
+          <div class="pp-person">
+            <div class="pp-avatar">{{ block.settings.initial }}</div>
+            <div><b>{{ block.settings.name }}</b><span>{{ block.settings.date }}</span></div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Polka Pop reviews",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Customer love" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Loved by Refreshment Seekers" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Short, scannable reviews help shoppers trust the product faster." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "A great flavoured sparkling water. The assorted pack lets us enjoy all the flavours." },
+        { "type": "text", "id": "initial", "label": "Avatar initial", "default": "P" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Pri" },
+        { "type": "text", "id": "date", "label": "Date", "default": "January 2023" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop reviews",
+      "blocks": [
+        { "type": "review", "settings": { "initial": "P", "name": "Pri", "date": "January 2023", "quote": "A great brand of flavoured sparkling water. The assorted pack lets us enjoy all the flavours." } },
+        { "type": "review", "settings": { "initial": "T", "name": "Tushar Purohit", "date": "July 2024", "quote": "The Cranberry one is just amazing. Always my go-to when I prefer something fizzy." } },
+        { "type": "review", "settings": { "initial": "A", "name": "Anthony", "date": "September 2025", "quote": "Absolutely in love with it, especially the Blueberry flavour." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

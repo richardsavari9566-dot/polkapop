@@ -1,0 +1,46 @@
+<section id="polkapop-prototype-shell-{{ section.id }}" class="polkapop-prototype-section">
+  <div class="page">
+    <div class="top-ribbon">Zero sugar • Zero calories • Zero sweeteners • Fully fizzy</div>
+    <header class="header">
+      <nav class="nav">
+        <a class="logo logo-image-link" href="#" aria-label="Polka Pop home"><img class="site-logo-image" src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Dark_BG_Logo_1_6143aa09-911f-49a9-8b15-48275bd4f292.avif?v=1785079527" alt="Polka Pop" width="123" height="104"></a>
+        <div class="nav-links">
+          <a href="#about">About us</a>
+          <a href="{{ routes.all_products_collection_url }}">Collections</a>
+          <a href="#resources">Resources</a>
+          <a href="#combos">Combos</a>
+          <a href="#gifts">Gift Packs</a>
+        </div>
+        <div class="nav-actions"><a class="cart" href="#">🛒</a><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Shop Now</a></div>
+      </nav>
+    </header>
+  </div>
+</section>
+
+<style>
+  #polkapop-prototype-shell-{{ section.id }} .logo-image-link {
+    height: 48px;
+    min-width: 58px;
+    align-items: center;
+  }
+
+  #polkapop-prototype-shell-{{ section.id }} .site-logo-image {
+    width: auto;
+    height: 48px;
+    max-width: 76px;
+    object-fit: contain;
+    display: block;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PP prototype header",
+  "settings": [],
+  "presets": [
+    {
+      "name": "PP prototype header"
+    }
+  ]
+}
+{% endschema %}

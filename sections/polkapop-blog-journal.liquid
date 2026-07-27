@@ -1,0 +1,84 @@
+<section id="journal" class="pp-wrap pp-blog">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+    </div>
+    <div class="pp-blog-layout">
+      {% for block in section.blocks %}
+        {% if forloop.first %}
+          <article class="pp-blog-feature" {{ block.shopify_attributes }}>
+            <a class="pp-blog-image" href="{{ block.settings.link }}">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: block.settings.image_alt }}
+              {% else %}
+                <img src="{{ block.settings.image_url }}" alt="{{ block.settings.image_alt }}" width="1200" height="715" loading="lazy">
+              {% endif %}
+            </a>
+            <span class="pp-pill">{{ block.settings.category }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <a class="pp-blog-read" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+          </article>
+        {% endif %}
+      {% endfor %}
+      <div>
+        {% for block in section.blocks %}
+          {% unless forloop.first %}
+          <article class="pp-blog-row" {{ block.shopify_attributes }}>
+            <a class="pp-blog-image" href="{{ block.settings.link }}">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.image_alt }}
+              {% else %}
+                <img src="{{ block.settings.image_url }}" alt="{{ block.settings.image_alt }}" width="900" height="530" loading="lazy">
+              {% endif %}
+            </a>
+            <div>
+              <span class="pp-pill">{{ block.settings.category }}</span>
+              <h3>{{ block.settings.title }}</h3>
+              <a class="pp-blog-read" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+            </div>
+          </article>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="pp-blog-action"><a class="pp-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Polka Pop blog journal",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "From the Polka Pop Journal" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Cool Taste for Every Moment" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View All Blog" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Blog card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "image_url", "label": "Fallback image URL" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Polka Pop blog image" },
+        { "type": "text", "id": "category", "label": "Category", "default": "Summer" },
+        { "type": "text", "id": "title", "label": "Title", "default": "5 Fizzy Ways to Beat the Heat This Summer" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Read More" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop blog journal",
+      "blocks": [
+        { "type": "article_card", "settings": { "category": "Summer", "title": "5 Fizzy Ways to Beat the Heat This Summer", "image_url": "https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098" } },
+        { "type": "article_card", "settings": { "category": "Favorites", "title": "Why Lemon Lime Became Everyone's Favorite Flavor", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_lime-lemon__1-7-21.png?v=1757614099&width=900" } },
+        { "type": "article_card", "settings": { "category": "Process", "title": "Behind the Bubbles: How Polka Pop Drinks Are Made", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_orange__1-1-36.png?v=1757613042&width=900" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,5 @@
+shopify-push-*.log
+shopify-push-*.status
+theme-upsert-payload.json
+.DS_Store
+Thumbs.db

@@ -1,0 +1,63 @@
+<section id="polkapop-prototype-reviews-{{ section.id }}" class="polkapop-prototype-section">
+  <div class="page">
+    <section class="section green-section" id="reviews">
+      <div class="container">
+        <div class="section-head"><div class="kicker">Customer love</div><h2 class="section-title">Loved by Refreshment Seekers</h2><p class="section-sub">Bigger review cards. Shorter text. More trust. Less microscopic testimonial archaeology.</p></div>
+        <div class="review-strip">
+          <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote">A great brand of flavoured sparkling water. The assorted pack lets us enjoy all the flavours without tasting too strong or sweet.</p><div class="person"><div class="avatar">P</div><div><b>Pri</b><span>January 2023</span></div></div></div>
+          <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote">The Cranberry one is just amazing. Always my go-to when I prefer something fizzy.</p><div class="person"><div class="avatar">T</div><div><b>Tushar Purohit</b><span>July 2024</span></div></div></div>
+          <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote">Absolutely in love with it. Light, clean, and easy to serve chilled any time.</p><div class="person"><div class="avatar">A</div><div><b>Anthony</b><span>September 2025</span></div></div></div>
+          <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote">Lemon Lime feels fresh without being sugary. It has become our fridge staple.</p><div class="person"><div class="avatar">S</div><div><b>Sneha</b><span>March 2026</span></div></div></div>
+          <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote">Perfect fizz for quick mocktails. The flavour is bright, crisp, and very easy to pair.</p><div class="person"><div class="avatar">R</div><div><b>Rahul</b><span>June 2026</span></div></div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<style>
+  #polkapop-prototype-reviews-{{ section.id }} .review-strip {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #polkapop-prototype-reviews-{{ section.id }} .review {
+    display: flex;
+    flex-direction: column;
+    min-height: 230px;
+    border-radius: 26px;
+    padding: 22px;
+  }
+
+  #polkapop-prototype-reviews-{{ section.id }} .review .quote {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 980px) {
+    #polkapop-prototype-reviews-{{ section.id }} .review-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    #polkapop-prototype-reviews-{{ section.id }} .review-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PP prototype reviews",
+  "settings": [],
+  "presets": [
+    {
+      "name": "PP prototype reviews"
+    }
+  ]
+}
+{% endschema %}

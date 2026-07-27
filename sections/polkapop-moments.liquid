@@ -1,0 +1,62 @@
+<section id="resources" class="pp-wrap pp-section">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+      <p class="pp-copy">{{ section.settings.text }}</p>
+    </div>
+    <div class="pp-grid pp-moment-grid">
+      {% for block in section.blocks %}
+        <article class="pp-card pp-moment" {{ block.shopify_attributes }}>
+          <div class="pp-moment-img">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.image_alt }}
+            {% elsif block.settings.image_url != blank %}
+              <img src="{{ block.settings.image_url }}" alt="{{ block.settings.image_alt }}" width="700" height="700" loading="lazy">
+            {% endif %}
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+          <a class="pp-moment-link" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Polka Pop moments",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Lifestyle usage" },
+    { "type": "text", "id": "title", "label": "Title", "default": "A Pop for Every Moment" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Give shoppers more reasons to pick a flavour for the moment they are in." }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Moment card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "image_url", "label": "Fallback image URL" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Polka Pop bottle" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Desk Break Fizz" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "A playful reset between calls, tasks and inbox chaos." },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop this flavour" },
+        { "type": "url", "id": "link", "label": "Link", "default": "#shop" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop moments",
+      "blocks": [
+        { "type": "moment", "settings": { "title": "Desk Break Fizz", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_lime-lemon__1-7-21.png?v=1757614099&width=700", "link_label": "Best with Lemon Lime" } },
+        { "type": "moment", "settings": { "title": "Snack-Time Pop", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_orange__1-1-36.png?v=1757613042&width=700", "link_label": "Pair with Orange" } },
+        { "type": "moment", "settings": { "title": "Weekend Cooler", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_cranberry__1-7-28.png?v=1757614865&width=700", "link_label": "Try Cranberry" } },
+        { "type": "moment", "settings": { "title": "Party Pop", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_peach__1-1-29.png?v=1757612540&width=700", "link_label": "Sip Peach" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

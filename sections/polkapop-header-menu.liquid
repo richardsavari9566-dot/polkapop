@@ -1,0 +1,70 @@
+<section id="polkapop-header-{{ section.id }}" class="pp-wrap pp-header">
+  <div class="pp-inner">
+    <nav class="pp-nav" aria-label="Main navigation">
+      <a class="pp-logo pp-logo-image-link" href="{{ section.settings.logo_link }}" aria-label="{{ section.settings.logo_text | escape }}">
+        <img class="pp-site-logo-image" src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Dark_BG_Logo_1_6143aa09-911f-49a9-8b15-48275bd4f292.avif?v=1785079527" alt="{{ section.settings.logo_text | escape }}" width="123" height="104">
+      </a>
+      <div class="pp-links">
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {% endfor %}
+      </div>
+      <div class="pp-actions">
+        <a class="pp-cart" href="{{ section.settings.cart_link }}" aria-label="Cart">{{ section.settings.cart_symbol }}</a>
+        <a class="pp-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<style>
+  #polkapop-header-{{ section.id }} .pp-logo-image-link {
+    height: 48px;
+    min-width: 58px;
+    display: flex;
+    align-items: center;
+  }
+
+  #polkapop-header-{{ section.id }} .pp-site-logo-image {
+    width: auto;
+    height: 48px;
+    max-width: 76px;
+    object-fit: contain;
+    display: block;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Polka Pop header menu",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "Polka Pop" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" },
+    { "type": "text", "id": "cart_symbol", "label": "Cart symbol", "default": "Cart" },
+    { "type": "url", "id": "cart_link", "label": "Cart link" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Now" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "menu_link",
+      "name": "Menu link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Shop" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop header menu",
+      "blocks": [
+        { "type": "menu_link", "settings": { "label": "Collections", "link": "#shop" } },
+        { "type": "menu_link", "settings": { "label": "Moments", "link": "#resources" } },
+        { "type": "menu_link", "settings": { "label": "Reviews", "link": "#reviews" } },
+        { "type": "menu_link", "settings": { "label": "Journal", "link": "#journal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

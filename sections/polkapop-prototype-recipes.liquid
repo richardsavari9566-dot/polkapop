@@ -1,0 +1,52 @@
+<section id="polkapop-prototype-recipes-{{ section.id }}" class="polkapop-prototype-section">
+  <div class="page">
+    <section class="section recipe-lab-section" id="recipes">
+      <div class="container">
+        <div class="section-head"><div class="kicker">Recipe Ideas</div><h2 class="section-title">Mix It Your Way</h2><p class="section-sub">Tap a recipe, play with the ingredients, and build a quick Polka Pop cooler.</p></div>
+        <div class="recipe-lab" style="--recipe-soft:#efffd4;--recipe-accent:#7dbf1d;" aria-live="polite">
+          <div class="recipe-visual">
+            <img id="recipeLabImage" src="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/cucumber-lemon-mint-cooler.png?v=1784096253&width=900" alt="Cucumber Lemon Mint Cooler with Polka Pop lemon lime sparkling water">
+            <div class="recipe-fizz" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="recipe-panel">
+            <span class="recipe-tag" id="recipeLabTag">Lemon Lime</span>
+            <h3 id="recipeLabTitle">Cucumber Lemon Mint Cooler</h3>
+            <p id="recipeLabDesc">Polka Pop Lemon Lime with cucumber, lemon, mint and ice for a crisp garden-style cooler.</p>
+            <div class="recipe-ingredients" id="recipeIngredients" aria-label="Recipe ingredients">
+              <button type="button" class="is-active">Cucumber</button>
+              <button type="button">Lemon</button>
+              <button type="button">Mint</button>
+              <button type="button">Ice</button>
+            </div>
+            <ol class="recipe-steps" id="recipeSteps">
+              <li>Fill a tall glass with ice.</li>
+              <li>Add cucumber ribbons, lemon slices and mint.</li>
+              <li>Pour chilled Lemon Lime Polka Pop and serve.</li>
+            </ol>
+            <button class="recipe-read" type="button" data-recipe-more aria-expanded="false" aria-controls="recipeMore">Read More</button>
+            <div class="recipe-more" id="recipeMore" hidden>Best served very cold in a tall glass. Clap the mint once before adding it for a brighter aroma.</div>
+          </div>
+          <div class="recipe-picker" role="tablist" aria-label="Choose a recipe">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-recipe-option data-tag="Lemon Lime" data-title="Cucumber Lemon Mint Cooler" data-desc="Polka Pop Lemon Lime with cucumber, lemon, mint and ice for a crisp garden-style cooler." data-detail="Best served very cold in a tall glass. Clap the mint once before adding it for a brighter aroma." data-img="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/cucumber-lemon-mint-cooler.png?v=1784096253&width=900" data-alt="Cucumber Lemon Mint Cooler with Polka Pop lemon lime sparkling water" data-soft="#efffd4" data-accent="#7dbf1d" data-ingredients="Cucumber|Lemon|Mint|Ice" data-steps="Fill a tall glass with ice.|Add cucumber ribbons, lemon slices and mint.|Pour chilled Lemon Lime Polka Pop and serve."><span>Lemon Lime</span><b>Cucumber Mint</b></button>
+            <button type="button" role="tab" aria-selected="false" data-recipe-option data-tag="Cranberry" data-title="Cranberry Mint Sparkle" data-desc="Cranberry Polka Pop with crushed ice, lime, mint and a handful of tart berries." data-detail="Use crushed ice and a squeeze of lime to make the cranberry note feel sharper and brighter." data-img="https://polkapop.in/cdn/shop/files/PolkaPOPlisting_cranberry__1-7-28.png?v=1757614865&width=900" data-alt="Cranberry Polka Pop recipe" data-soft="#ffe8ee" data-accent="#ff4778" data-ingredients="Cranberries|Lime|Mint|Crushed ice" data-steps="Muddle lime and mint gently.|Add crushed ice and cranberries.|Top with chilled Cranberry Polka Pop."><span>Cranberry</span><b>Mint Sparkle</b></button>
+            <button type="button" role="tab" aria-selected="false" data-recipe-option data-tag="Orange" data-title="Orange Brunch Fizz" data-desc="Orange Polka Pop with orange wheels, ice and a fresh herb garnish for a sunny brunch pour." data-detail="Serve in a short glass with a wide orange wheel so the citrus aroma lands first." data-img="https://polkapop.in/cdn/shop/files/PolkaPOPlisting_orange__1-1-36.png?v=1757613042&width=900" data-alt="Orange Polka Pop recipe" data-soft="#fff0d8" data-accent="#ff8a2a" data-ingredients="Orange|Basil|Ice|Zest" data-steps="Pack a glass with large ice cubes.|Add orange wheels and a little zest.|Pour Orange Polka Pop slowly over the top."><span>Orange</span><b>Brunch Fizz</b></button>
+            <button type="button" role="tab" aria-selected="false" data-recipe-option data-tag="Peach" data-title="Peach Iced Sparkle" data-desc="Peach Polka Pop with ice, lemon peel and mint for a soft golden refreshment." data-detail="A lemon peel twist keeps the peach profile clean, light and not too sweet." data-img="https://polkapop.in/cdn/shop/files/PolkaPOPlisting_peach__1-1-29.png?v=1757612540&width=900" data-alt="Peach Polka Pop recipe" data-soft="#fff4dc" data-accent="#ffb86a" data-ingredients="Peach|Lemon peel|Mint|Ice" data-steps="Add ice and thin peach slices.|Drop in mint and lemon peel.|Finish with chilled Peach Polka Pop."><span>Peach</span><b>Iced Sparkle</b></button>
+          </div>
+          
+          </div>
+        </div>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP prototype recipes",
+  "settings": [],
+  "presets": [
+    {
+      "name": "PP prototype recipes"
+    }
+  ]
+}
+{% endschema %}

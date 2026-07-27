@@ -1,0 +1,16 @@
+<section id="polkapop-page-header-override-{{ section.id }}" class="polkapop-page-header-override" aria-hidden="true"></section>
+
+{% stylesheet %}
+body:has(.polkapop-page-header-override) .ppc-announcement,
+body:has(.polkapop-page-header-override) .ppc-header{display:none!important}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Polka Pop header override",
+  "settings": [],
+  "presets": [
+    { "name": "Polka Pop header override" }
+  ]
+}
+{% endschema %}

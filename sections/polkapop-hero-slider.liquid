@@ -1,0 +1,61 @@
+<section id="polkapop-hero-{{ section.id }}" class="pp-wrap pp-hero pp-video-hero" aria-label="{{ section.settings.accessibility_label }}">
+  <video class="pp-hero-video" autoplay muted loop playsinline preload="auto" poster="https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098" aria-label="Polka Pop sparkling water homepage hero video">
+    <source src="https://cdn.shopify.com/videos/c/vp/750df6519b8d4cb1b89f27d78b2a7798/750df6519b8d4cb1b89f27d78b2a7798.HD-720p-1.6Mbps-89707674.mp4" type="video/mp4">
+    <source src="https://cdn.shopify.com/videos/c/vp/750df6519b8d4cb1b89f27d78b2a7798/750df6519b8d4cb1b89f27d78b2a7798.SD-480p-0.9Mbps-89707674.mp4" type="video/mp4">
+  </video>
+</section>
+
+{% javascript %}
+(() => {
+  document.querySelectorAll('.pp-hero-video').forEach(video => {
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.load();
+    const play = () => video.play().catch(() => {});
+    video.addEventListener('canplay', play, { once: true });
+    play();
+  });
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Polka Pop hero slider",
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "Polka Pop hero slider" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero slide",
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Premium sparkling water" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fresh Fizz for Every Mood" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Zero sugar sparkling water with crisp fruit flavour and a playful Polka Pop finish." },
+        { "type": "image_picker", "id": "background_image", "label": "Background image" },
+        { "type": "url", "id": "background_url", "label": "Fallback background URL" },
+        { "type": "text", "id": "background_alt", "label": "Background alt text", "default": "Polka Pop hero banner" },
+        { "type": "image_picker", "id": "bottle_image", "label": "Bottle image" },
+        { "type": "url", "id": "bottle_url", "label": "Fallback bottle URL" },
+        { "type": "text", "id": "bottle_alt", "label": "Bottle alt text", "default": "Polka Pop bottle" },
+        { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop Now" },
+        { "type": "url", "id": "primary_link", "label": "Primary button link" },
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Order in 10-15 min" },
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop hero slider",
+      "blocks": [
+        { "type": "slide", "settings": { "kicker": "Zero sugar sparkling water", "title": "Cranberry Pop, Clean and Crisp", "primary_label": "Shop Cranberry", "bottle_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_cranberry__1-7-28.png?v=1757614865&width=900" } },
+        { "type": "slide", "settings": { "kicker": "Bright citrus refreshment", "title": "Lemon Lime with a Sharp Spark", "primary_label": "Shop Lemon Lime", "bottle_url": "https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-lemon-lime-hero-bottle.png?v=1783326958" } },
+        { "type": "slide", "settings": { "kicker": "Sunny orange fizz", "title": "Orange Pop for Snack Time", "primary_label": "Shop Orange", "bottle_url": "https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-orange-hero-bottle.png?v=1783327234" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+<footer class="pp-wrap pp-footer">
+  <div class="pp-inner">
+    <div class="pp-footer-grid">
+      <div>
+        <h3>{{ section.settings.brand_title }}</h3>
+        <p>{{ section.settings.brand_text }}</p>
+      </div>
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.heading }}</h4>
+          {% assign links = block.settings.links | newline_to_br | split: '<br />' %}
+          {% for link_text in links %}
+            <a href="{{ block.settings.default_link }}">{{ link_text }}</a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="pp-copyright">
+      <span>{{ section.settings.copyright }}</span>
+      <span>{{ section.settings.credit }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Polka Pop custom footer",
+  "settings": [
+    { "type": "text", "id": "brand_title", "label": "Brand title", "default": "Polka Pop" },
+    { "type": "textarea", "id": "brand_text", "label": "Brand text", "default": "Zero sugar sparkling water made for crisp, colourful everyday refreshment." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Polka Pop. Homepage redesign concept." },
+    { "type": "text", "id": "credit", "label": "Credit", "default": "Designed for Shopify homepage implementation" }
+  ],
+  "blocks": [
+    {
+      "type": "footer_column",
+      "name": "Footer column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "textarea", "id": "links", "label": "Link labels, one per line", "default": "All Flavours\nCranberry\nLemon Lime\nOrange\nPeach" },
+        { "type": "url", "id": "default_link", "label": "Default link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop custom footer",
+      "blocks": [
+        { "type": "footer_column", "settings": { "heading": "Shop", "links": "All Flavours\nCranberry\nLemon Lime\nOrange\nPeach", "default_link": "#shop" } },
+        { "type": "footer_column", "settings": { "heading": "Brand", "links": "About\nReviews\nJournal", "default_link": "#about" } },
+        { "type": "footer_column", "settings": { "heading": "Help", "links": "Contact\nShipping\nReturns", "default_link": "/pages/contact" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,120 @@
+<section id="recipes" class="pp-wrap pp-section">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+      <p class="pp-copy">{{ section.settings.text }}</p>
+    </div>
+    {% assign first_recipe = section.blocks | first %}
+    <div class="pp-recipe-layout">
+      <div class="pp-recipe-showcase">
+        <div class="pp-kicker" id="recipeFlavor-{{ section.id }}">{{ first_recipe.settings.flavor }}</div>
+        <h3 id="recipeTitle-{{ section.id }}">{{ first_recipe.settings.title }}</h3>
+        <p class="pp-copy" id="recipeDesc-{{ section.id }}">{{ first_recipe.settings.description }}</p>
+        <div class="pp-recipe-visual">
+          <img id="recipeImg-{{ section.id }}" src="{{ first_recipe.settings.image_url }}" alt="{{ first_recipe.settings.image_alt }}" width="800" height="800" loading="lazy">
+        </div>
+        <div class="pp-recipe-steps" id="recipeSteps-{{ section.id }}">
+          {% assign steps = first_recipe.settings.steps | split: '|' %}
+          {% for step in steps %}
+            <span>{{ step }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="pp-recipe-menu" aria-label="Choose a recipe">
+        {% for block in section.blocks %}
+          <button class="pp-recipe-choice{% if forloop.first %} is-selected{% endif %}" type="button" data-section="{{ section.id }}" data-flavor="{{ block.settings.flavor | escape }}" data-title="{{ block.settings.title | escape }}" data-desc="{{ block.settings.description | escape }}" data-img="{{ block.settings.image_url }}" data-alt="{{ block.settings.image_alt | escape }}" data-steps="{{ block.settings.steps | escape }}" {{ block.shopify_attributes }}>
+            <small>{{ block.settings.flavor }}</small>
+            <h4>{{ block.settings.short_title }}</h4>
+            <p>{{ block.settings.short_text }}</p>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% javascript %}
+(() => {
+  const activateRecipe = choice => {
+      const sectionId = choice.dataset.section;
+      const group = choice.closest('.pp-recipe-menu');
+      group?.querySelectorAll('.pp-recipe-choice').forEach(item => item.classList.remove('is-selected'));
+      choice.classList.add('is-selected');
+      const flavor = document.getElementById(`recipeFlavor-${sectionId}`);
+      const title = document.getElementById(`recipeTitle-${sectionId}`);
+      const desc = document.getElementById(`recipeDesc-${sectionId}`);
+      const img = document.getElementById(`recipeImg-${sectionId}`);
+      const steps = document.getElementById(`recipeSteps-${sectionId}`);
+      if (flavor) flavor.textContent = choice.dataset.flavor || '';
+      if (title) title.textContent = choice.dataset.title || '';
+      if (desc) desc.textContent = choice.dataset.desc || '';
+      if (img) {
+        img.src = choice.dataset.img || img.src;
+        img.alt = choice.dataset.alt || '';
+      }
+      if (steps) {
+        steps.innerHTML = (choice.dataset.steps || '').split('|').map(step => `<span>${step}</span>`).join('');
+      }
+  };
+
+  document.querySelectorAll('.pp-recipe-menu').forEach(group => {
+    const choices = [...group.querySelectorAll('.pp-recipe-choice')];
+    if (!choices.length) return;
+    let index = Math.max(0, choices.findIndex(choice => choice.classList.contains('is-selected')));
+    let timer = window.setInterval(() => {
+      index = (index + 1) % choices.length;
+      activateRecipe(choices[index]);
+    }, 2000);
+
+    choices.forEach((choice, choiceIndex) => {
+      choice.addEventListener('click', () => {
+        index = choiceIndex;
+        activateRecipe(choice);
+        window.clearInterval(timer);
+        timer = window.setInterval(() => {
+          index = (index + 1) % choices.length;
+          activateRecipe(choices[index]);
+        }, 2000);
+      });
+    });
+  });
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Polka Pop recipes",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Recipes" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Mix a Better Sparkling Moment" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Clickable recipe cards keep the playful prototype effect while letting designers edit each recipe." }
+  ],
+  "blocks": [
+    {
+      "type": "recipe",
+      "name": "Recipe",
+      "settings": [
+        { "type": "text", "id": "flavor", "label": "Flavor", "default": "Cranberry" },
+        { "type": "text", "id": "title", "label": "Showcase title", "default": "Cranberry Mint Cooler" },
+        { "type": "textarea", "id": "description", "label": "Showcase description", "default": "Polka Pop Cranberry with mint, lime and crushed ice for a crisp weekend cooler." },
+        { "type": "text", "id": "image_url", "label": "Image URL", "default": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_cranberry__1-7-28.png?v=1757614865&width=800" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Cranberry Polka Pop bottle" },
+        { "type": "text", "id": "steps", "label": "Steps separated by |", "default": "1. Add ice|2. Pour Polka Pop|3. Garnish and serve" },
+        { "type": "text", "id": "short_title", "label": "Button title", "default": "Mint Cooler" },
+        { "type": "textarea", "id": "short_text", "label": "Button text", "default": "Fresh, tart and perfect for weekend sipping." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Polka Pop recipes",
+      "blocks": [
+        { "type": "recipe", "settings": { "flavor": "Cranberry", "title": "Cranberry Mint Cooler", "short_title": "Mint Cooler", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_cranberry__1-7-28.png?v=1757614865&width=800" } },
+        { "type": "recipe", "settings": { "flavor": "Lemon Lime", "title": "Lemon Lime Spritzer", "short_title": "Citrus Spritzer", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_lime-lemon__1-7-21.png?v=1757614099&width=800", "description": "Lemon Lime Polka Pop with cucumber, basil and ice for a bright citrus spritz.", "steps": "1. Drop cucumber|2. Add basil|3. Top with fizz" } },
+        { "type": "recipe", "settings": { "flavor": "Orange", "title": "Orange Brunch Fizz", "short_title": "Brunch Fizz", "image_url": "https://polkapop.in/cdn/shop/files/PolkaPOPlisting_orange__1-1-36.png?v=1757613042&width=800", "description": "Orange Polka Pop with orange slices, ice and a rosemary garnish for brunch tables.", "steps": "1. Fill tall glass|2. Add orange slice|3. Pour chilled fizz" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

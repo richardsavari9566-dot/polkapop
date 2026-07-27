@@ -1,0 +1,43 @@
+<section id="{{ section.settings.anchor_id }}" class="pp-wrap pp-section{% if section.settings.green_background %} green{% endif %}">
+  <div class="pp-inner">
+    <div class="pp-section-head">
+      <div class="pp-kicker">{{ section.settings.kicker }}</div>
+      <h2 class="pp-title">{{ section.settings.title }}</h2>
+      <p class="pp-copy">{{ section.settings.text }}</p>
+      {% if section.settings.button_label != blank %}
+        <a class="pp-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      {% endif %}
+      {% if section.settings.anchor_id == 'about' %}
+        <div class="pp-why-chips" aria-label="Why PolkaPop highlights">
+          <button type="button">Zero sugar</button>
+          <button type="button">Real fizz</button>
+          <button type="button">Bright flavours</button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.pp-why-chips{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.pp-why-chips button{border:2px solid var(--green);background:#fff;color:var(--green);border-radius:999px;padding:11px 18px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 rgba(6,72,46,.16);transition:transform .2s ease,background .2s ease,color .2s ease,box-shadow .2s ease}
+.pp-why-chips button:hover,.pp-why-chips button:focus-visible{background:var(--lime);transform:translateY(-3px);box-shadow:0 8px 0 rgba(6,72,46,.22);outline:none}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Polka Pop content band",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "default": "about" },
+    { "type": "checkbox", "id": "green_background", "label": "Use green background", "default": false },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "About Polka Pop" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Sparkling Water with a Playful Pop" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A clean, colourful sparkling water experience made for everyday refreshment." },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Polka Pop content band" }
+  ]
+}
+{% endschema %}

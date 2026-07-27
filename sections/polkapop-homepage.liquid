@@ -16,7 +16,7 @@
           <a href="#combos">Combos</a>
           <a href="#gifts">Gift Packs</a>
         </div>
-        <div class="nav-actions"><a class="cart" href="#">🛒</a><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Shop Now</a></div>
+        <div class="nav-actions"><a class="cart" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6h15l-2 8H8L6 6Zm0 0L5.25 3.5H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Shop Now</a></div>
       </nav>
     </header>
 
@@ -220,7 +220,8 @@ body:has(.polkapop-prototype-section) main, body:has(.polkapop-prototype-section
     .logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 160deg,var(--pink),var(--orange),var(--lime),var(--green));box-shadow:0 0 0 5px rgba(13,113,70,.08)}
     .nav-links{display:flex;align-items:center;gap:24px;font-size:13px;font-weight:800;color:#000}
     .nav-actions{display:flex;align-items:center;gap:12px;font-weight:800;font-size:13px;color:#000}
-    .cart{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(0,0,0,.18);background:#fff;color:#000;font-size:14px}
+    .cart{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(0,0,0,.18);background:#fff;color:#000}
+    .cart svg{width:18px;height:18px;display:block}
     .btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:900;cursor:pointer;transition:.25s ease;box-shadow:0 10px 24px rgba(13,113,70,.18)}
     .btn-primary{background:var(--green);color:#fff}
     .btn-primary:hover{transform:translateY(-2px);background:var(--green-dark)}

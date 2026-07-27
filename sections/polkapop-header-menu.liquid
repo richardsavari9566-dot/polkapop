@@ -10,7 +10,7 @@
         {% endfor %}
       </div>
       <div class="pp-actions">
-        <a class="pp-cart" href="{{ section.settings.cart_link }}" aria-label="Cart">{{ section.settings.cart_symbol }}</a>
+        <a class="pp-cart" href="{{ section.settings.cart_link }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6h15l-2 8H8L6 6Zm0 0L5.25 3.5H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a>
         <a class="pp-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
       </div>
     </nav>
@@ -30,6 +30,12 @@
     height: 58px;
     max-width: 58px;
     object-fit: contain;
+    display: block;
+  }
+
+  #polkapop-header-{{ section.id }} .pp-cart svg {
+    width: 18px;
+    height: 18px;
     display: block;
   }
 </style>

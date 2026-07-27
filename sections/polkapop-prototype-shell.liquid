@@ -11,7 +11,7 @@
           <a href="#combos">Combos</a>
           <a href="#gifts">Gift Packs</a>
         </div>
-        <div class="nav-actions"><a class="cart" href="#">🛒</a><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Shop Now</a></div>
+        <div class="nav-actions"><a class="cart" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6h15l-2 8H8L6 6Zm0 0L5.25 3.5H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Shop Now</a></div>
       </nav>
     </header>
   </div>
@@ -29,6 +29,12 @@
     height: 58px;
     max-width: 58px;
     object-fit: contain;
+    display: block;
+  }
+
+  #polkapop-prototype-shell-{{ section.id }} .cart svg {
+    width: 18px;
+    height: 18px;
     display: block;
   }
 </style>

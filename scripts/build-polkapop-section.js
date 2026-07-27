@@ -67,7 +67,7 @@ const blogCss = `
     .blog-container{max-width:1000px;margin:0 auto}
     .blog-heading{text-align:center;margin-bottom:38px}
     .blog-kicker{color:#0d7146;font-size:14px;font-weight:900;letter-spacing:.01em;margin-bottom:8px}
-    .blog-heading h2{font-family:Fraunces,serif;font-size:clamp(38px,4.2vw,58px);line-height:.95;letter-spacing:-.045em;margin:0;color:#21110d}
+    .blog-heading h2{font-family:Montserrat,system-ui,-apple-system,'Segoe UI',sans-serif;font-size:clamp(38px,4.2vw,58px);line-height:.95;letter-spacing:-.045em;margin:0;color:#21110d}
     .blog-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:26px 28px;align-items:start}
     .blog-feature,.blog-row{position:relative}
     .blog-image{display:block;overflow:hidden;border-radius:7px;background:#fff4dc}
@@ -76,7 +76,7 @@ const blogCss = `
     .blog-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.16,.86,.24,1)}
     .blog-feature:hover .blog-image img,.blog-row:hover .blog-image img{transform:scale(1.04)}
     .blog-pill{display:inline-flex;align-items:center;border:1.5px solid #0d7146;border-bottom-width:4px;border-radius:999px;background:#d9ff48;color:#0d7146;padding:5px 12px;font-size:12px;font-weight:900;line-height:1;margin-top:14px}
-    .blog-feature h3,.blog-row h3{font-family:Fraunces,serif;color:#21110d;letter-spacing:-.035em;margin:12px 0 12px;line-height:1.02}
+    .blog-feature h3,.blog-row h3{font-family:Montserrat,system-ui,-apple-system,'Segoe UI',sans-serif;color:#21110d;letter-spacing:-.035em;margin:12px 0 12px;line-height:1.02}
     .blog-feature h3{font-size:24px}
     .blog-row h3{font-size:22px;max-width:280px}
     .blog-read{display:inline-flex;color:#21110d;font-size:14px;font-weight:800;text-decoration:none}
@@ -143,3 +143,4 @@ ${js}
 
 fs.writeFileSync('sections/polkapop-homepage.liquid', section, 'utf8');
 console.log(JSON.stringify({ written: section.length }, null, 2));
+

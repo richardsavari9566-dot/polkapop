@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "polkapop-product-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,206 @@
+<style>
+/* 1. Hide duplicate product title inside stage */
+.ppcv2-product-title{display:none !important}
+
+/* 2. Ingredient badges — non-interactive, behind card text */
+.ppcv2-ingredient{z-index:2 !important;pointer-events:none}
+
+/* 3. Product card — shift stage content up so image+badges clear the text panel */
+.ppcv2-product-card{position:relative;height:auto !important;min-height:680px !important}
+.ppcv2-product-stage{height:520px !important;overflow:visible !important}
+.ppcv2-product-stage .ppcv2-packshot{max-height:55% !important;transform:translateY(-60px) !important}
+.ppcv2-ingredient.ppcv2-i1,.ppcv2-ingredient.ppcv2-i2{transform:translateY(-60px) !important}
+.ppcv2-ingredient.ppcv2-i3,.ppcv2-ingredient.ppcv2-i4{transform:translateY(-100px) !important}
+
+/* Force product-specific card backgrounds */
+.ppcv2-product-card{background:var(--card-bg) !important}
+.ppcv2-product-stage::before{background:radial-gradient(circle at 50% 24%,rgba(255,255,255,.45),transparent 45%) !important}
+
+/* Card info panel — use card color as background tint */
+.ppcv2-card-info{position:absolute !important;bottom:0 !important;left:0;right:0;background:var(--card-bg,#fff) !important;padding:12px 14px !important;text-align:center;z-index:4;height:auto !important;max-height:160px !important;overflow:hidden !important;border-top:1px solid rgba(0,0,0,.06)}
+.ppcv2-card-info p,.ppcv2-card-info span{display:block !important;height:auto !important;min-height:0 !important;max-height:none !important;padding:0 !important;line-height:1.3 !important;box-sizing:border-box !important}
+.ppcv2-card-info .ci-name{font-size:15px !important;font-weight:800 !important;color:#1a1a1a !important;margin:0 0 2px 0 !important;letter-spacing:-.02em !important}
+.ppcv2-card-info .ci-desc{font-size:11px !important;color:#555 !important;margin:0 0 4px !important;font-style:italic !important}
+.ppcv2-card-info .ci-pack{font-size:12px !important;color:#333 !important;font-weight:600 !important;margin:0 0 3px !important}
+.ppcv2-card-info .ci-rating{font-size:11px !important;color:#facc15 !important;margin:0 0 6px !important}
+.ppcv2-card-info .ci-rating span{color:#888 !important;font-size:11px !important;display:inline !important}
+.ppcv2-card-info .ci-cta{display:inline-block !important;background:#1a1a1a !important;color:#fff !important;font-size:11px !important;font-weight:700 !important;padding:7px 18px !important;border-radius:999px !important;text-decoration:none !important;letter-spacing:.03em !important;transition:background .2s !important;line-height:1 !important}
+.ppcv2-card-info .ci-cta:hover{background:#333 !important}
+
+/* 4. FAQ — homepage card style */
+.ppcv2-faq .ppcv2-accordion{display:none !important}
+.ppcv2-faq-heading-group{margin-bottom:24px !important}
+.pp-col-faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;align-items:start;max-width:1160px;margin:0 auto}
+.pp-col-faq-card{background:#fff;border-radius:14px;border:1px solid #111;padding:20px 24px;box-shadow:4px 4px 0 0 #111;list-style:none}
+.pp-col-faq-card summary{display:flex;justify-content:space-between;align-items:center;padding:11px 0;cursor:pointer;font-size:17px;font-weight:700;color:#0a0a0a;list-style:none}
+.pp-col-faq-card summary::-webkit-details-marker{display:none}
+.pp-col-faq-card summary::marker{display:none;content:''}
+.pp-col-faq-card .pp-col-faq-chev{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:#2b2b2b;position:relative;display:block}
+.pp-col-faq-card .pp-col-faq-chev::after{content:'';position:absolute;left:50%;top:46%;width:8px;height:8px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:translate(-50%,-50%) rotate(45deg);transition:transform .22s}
+.pp-col-faq-card[open] .pp-col-faq-chev::after{transform:translate(-50%,-20%) rotate(-135deg)}
+.pp-col-faq-card .pp-col-faq-answer{padding:12px 0 0;font-size:15px;color:#555;line-height:24px}
+.pp-col-faq-card .pp-col-faq-answer p{margin:0}
+
+/* 5. Consistent button colors — CTA banner button matches all others */
+.ppcv2-cta-btn{background:#1a1a1a !important;color:#fff !important;border-radius:999px !important}
+.ppcv2-cta-btn:hover{background:#333 !important}
+
+/* 6. Banner text — keep left side visible */
+.ppcv2-hero-banner-image{object-position:left center !important}
+
+/* Mixed case section */
+.ppcv2-mixed-case{padding:60px 20px;text-align:center}
+.ppcv2-mixed-case .mc-badge{display:inline-block;background:#facc15;color:#1a1a1a;font-size:11px;font-weight:900;padding:4px 14px;border-radius:999px;letter-spacing:.08em;margin-bottom:12px}
+.ppcv2-mixed-case h2{font-size:28px;font-weight:800;color:#1a1a1a;margin:0 0 10px;letter-spacing:-.03em}
+.ppcv2-mixed-case .mc-desc{font-size:15px;color:#666;margin:0 0 24px;max-width:500px;display:inline-block}
+.ppcv2-mixed-case .mc-options{display:flex;justify-content:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.ppcv2-mixed-case .mc-opt{border:2px solid #e5e7eb;border-radius:12px;padding:14px 28px;font-size:14px;font-weight:700;color:#1a1a1a;background:#fff;cursor:pointer;transition:border-color .2s,background .2s}
+.ppcv2-mixed-case .mc-opt.is-active,.ppcv2-mixed-case .mc-opt:hover{border-color:#1a1a1a;background:#f5f5f5}
+.ppcv2-mixed-case .mc-cta{display:inline-block;background:#1a1a1a;color:#fff;font-size:14px;font-weight:700;padding:14px 32px;border-radius:999px;text-decoration:none;letter-spacing:.03em;transition:background .2s}
+.ppcv2-mixed-case .mc-cta:hover{background:#333}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:768px){
+  .ppcv2-product-card{min-height:500px !important}
+  .ppcv2-product-stage{height:360px !important}
+  .ppcv2-product-stage .ppcv2-packshot{max-height:60% !important;transform:translateY(-30px) !important}
+  .ppcv2-ingredient.ppcv2-i1,.ppcv2-ingredient.ppcv2-i2{transform:translateY(-30px) !important}
+  .ppcv2-ingredient.ppcv2-i3,.ppcv2-ingredient.ppcv2-i4{transform:translateY(-60px) !important}
+  .ppcv2-ingredient{transform-origin:center center}
+  .ppcv2-card-info{max-height:140px !important;padding:10px 12px !important}
+  .ppcv2-card-info .ci-name{font-size:14px !important}
+  .ppcv2-card-info .ci-cta{padding:6px 16px !important;font-size:11px !important}
+  .ppcv2-faq-heading-group h2,.ppcv2-faq-title{font-size:22px !important}
+  .ppcv2-faq-heading-group{margin-bottom:16px !important}
+  .pp-col-faq-grid{grid-template-columns:1fr;gap:12px}
+  .pp-col-faq-card{padding:16px 18px;box-shadow:3px 3px 0 0 #111}
+  .pp-col-faq-card summary{font-size:15px;padding:8px 0}
+  .pp-col-faq-card .pp-col-faq-chev{width:28px;height:28px}
+  .pp-col-faq-card .pp-col-faq-answer{font-size:14px;line-height:22px}
+  .ppcv2-mixed-case{padding:40px 16px}
+  .ppcv2-mixed-case h2{font-size:22px}
+  .ppcv2-mixed-case .mc-desc{font-size:14px}
+  .ppcv2-mixed-case .mc-opt{padding:12px 22px;font-size:13px}
+  .ppcv2-mixed-case .mc-cta{padding:12px 28px;font-size:13px}
+  .ppcv2-cta-title{font-size:26px !important}
+  .ppcv2-cta-section .ppcv2-cta-box{padding:40px 18px !important}
+  .ppcv2-cta-btn{font-size:13px !important;padding:12px 24px !important}
+  .ppcv2-hero-banner-image{object-position:20% center !important}
+}
+
+/* Tablet tweaks */
+@media(min-width:769px) and (max-width:1024px){
+  .ppcv2-product-card{min-height:620px !important}
+  .ppcv2-product-stage{height:460px !important}
+  .ppcv2-mixed-case h2{font-size:24px}
+  .ppcv2-faq-heading-group h2,.ppcv2-faq-title{font-size:26px !important}
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var isCollection=document.querySelector('.pp-col-v2');
+  if(!isCollection) return;
+
+  /* 1. Upgrade product cards with ecommerce info */
+  var productData=[
+    {name:'Blueberry Bliss',desc:'Crisp, bright and lightly fruity',pack:'Pack of 12',price:'₹480',rating:'4.7',reviews:'126',url:'/products/blueberry-sparkling-water-300ml-each-packs-of-12-24'},
+    {name:'Cranberry Crush',desc:'Tart, refreshing and naturally bold',pack:'Pack of 12',price:'₹480',rating:'4.6',reviews:'98',url:'/products/cranberry-sparkling-water-300ml-each-packs-of-12-24'},
+    {name:'Lemon Lime Lift',desc:'Zesty, clean and effortlessly cool',pack:'Pack of 12',price:'₹480',rating:'4.8',reviews:'142',url:'/products/peach-sparkling-water-300ml-each-packs-of-12-24-copy'},
+    {name:'Orange Spark',desc:'Bright, citrusy and full of life',pack:'Pack of 12',price:'₹480',rating:'4.5',reviews:'87',url:'/products/polka-pop-orange-sparkling-water-300ml-each-zero-sugar-zero-calories-no-aspartame-or-stevia-no-preservatives-copy'},
+    {name:'Peach Pop',desc:'Soft, golden and naturally sweet',pack:'Pack of 12',price:'₹480',rating:'4.7',reviews:'110',url:'/products/polka-pop-peach-sparkling-water-300ml-each-zero-sugar-zero-calories-no-aspartame-or-stevia-no-preservatives'}
+  ];
+
+  var cards=document.querySelectorAll('.ppcv2-product-card');
+  cards.forEach(function(card,i){
+    if(!productData[i]) return;
+    var d=productData[i];
+
+    if(card.tagName==='BUTTON'){
+      var link=document.createElement('a');
+      link.href=d.url;
+      link.className=card.className;
+      link.innerHTML=card.innerHTML;
+      link.setAttribute('style',card.getAttribute('style'));
+      link.setAttribute('aria-label',d.name+' - view product');
+      card.parentNode.replaceChild(link,card);
+      card=link;
+    }
+
+    var info=document.createElement('div');
+    info.className='ppcv2-card-info';
+    info.innerHTML='<p class="ci-name">'+d.name+'</p>'+
+      '<p class="ci-desc">'+d.desc+'</p>'+
+      '<p class="ci-pack">'+d.pack+' · '+d.price+'</p>'+
+      '<p class="ci-rating">★★★★★ '+d.rating+' <span>('+d.reviews+')</span></p>'+
+      '<span class="ci-cta">Choose Pack</span>';
+    card.appendChild(info);
+  });
+
+  /* 2. Add mixed-case section after product grid */
+  var collectionsSection=document.querySelector('#collections');
+  if(collectionsSection){
+    var mc=document.createElement('section');
+    mc.className='ppcv2-mixed-case ppcv2-container';
+    mc.innerHTML='<span class="mc-badge">BEST VALUE</span>'+
+      '<h2>Build Your Own Mixed Case</h2>'+
+      '<p class="mc-desc">Choose any flavours and create a case that is completely your own.</p>'+
+      '<div class="mc-options">'+
+        '<button class="mc-opt is-active" type="button">12 bottles</button>'+
+        '<button class="mc-opt" type="button">24 bottles</button>'+
+      '</div>'+
+      '<a class="mc-cta" href="/products/blueberry-sparkling-water-300ml-each-packs-of-12-24">Build Your Case</a>';
+    collectionsSection.insertAdjacentElement('afterend',mc);
+
+    mc.querySelectorAll('.mc-opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        mc.querySelectorAll('.mc-opt').forEach(function(b){b.classList.remove('is-active')});
+        btn.classList.add('is-active');
+      });
+    });
+  }
+
+  /* 3. Replace FAQ with homepage-style card grid */
+  var faqContainer=document.querySelector('.ppcv2-faq');
+  if(faqContainer){
+    var newFAQs=[
+      {q:'Is sparkling water actually good for you?',a:'Yes. It’s just carbonated water with natural fruit flavour — zero sugar, zero calories, zero artificial sweeteners. A healthier alternative to soda.'},
+      {q:'How is this different from other sparkling waters?',a:'Most brands use artificial sweeteners like aspartame or stevia. Polka Pop doesn’t. Just natural flavour, no preservatives, no added sugar.'},
+      {q:'Does it taste like soda?',a:'No. It’s lighter and crisper, with a real fruit taste instead of a sugary soda flavour.'},
+      {q:'Is it keto-friendly or safe for diabetics?',a:'Yes, since it has zero sugar and zero calories. But it’s always best to check with your doctor first.'},
+      {q:'Can kids or pregnant women drink it?',a:'Yes, it’s caffeine-free and has no artificial sweeteners or preservatives. Still, check with a doctor if you have any concerns.'},
+      {q:'How long does it stay fresh after opening?',a:'Best enjoyed within 24 hours of opening. Keep it refrigerated for maximum freshness and fizz.'}
+    ];
+
+    var grid=document.createElement('div');
+    grid.className='pp-col-faq-grid';
+    newFAQs.forEach(function(faq){
+      var card=document.createElement('details');
+      card.className='pp-col-faq-card';
+      card.innerHTML='<summary><span>'+faq.q+'</span><span class="pp-col-faq-chev" aria-hidden="true"></span></summary>'+
+        '<div class="pp-col-faq-answer"><p>'+faq.a+'</p></div>';
+      grid.appendChild(card);
+    });
+    faqContainer.appendChild(grid);
+  }
+
+  /* 4. Replace CTA section */
+  var ctaSection=document.querySelector('.ppcv2-cta-section');
+  if(ctaSection){
+    var ctaBox=ctaSection.querySelector('.ppcv2-cta-box');
+    if(ctaBox){
+      ctaBox.innerHTML=
+        '<span class="ppcv2-cta-fruit ppcv2-cf1">🍒</span>'+
+        '<span class="ppcv2-cta-fruit ppcv2-cf2">🍏</span>'+
+        '<span class="ppcv2-cta-fruit ppcv2-cf3">🍋</span>'+
+        '<span class="ppcv2-cta-fruit ppcv2-cf4">🪰</span>'+
+        '<div>'+
+          '<p class="ppcv2-eyebrow">Can’t pick one?</p>'+
+          '<h2 class="ppcv2-cta-title">Try Them All.</h2>'+
+          '<p>Explore all five naturally flavoured sparkling waters and find your perfect sip. Choose your favourite flavour and enjoy crisp, refreshing fizz with zero sugar, zero calories and no sweeteners.</p>'+
+          '<a class="ppcv2-cta-btn" href="/products/blueberry-sparkling-water-300ml-each-packs-of-12-24">Build Your Case</a>'+
+        '</div>';
+    }
+  }
+});
+</script>

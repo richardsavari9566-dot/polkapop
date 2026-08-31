@@ -1,0 +1,185 @@
+<style>
+.ppcv2-hover-pill{display:none !important}
+.ppcv2-hero-banner-image{transform:none !important;transition:none !important}
+.ppcv2-hero-left:hover .ppcv2-hero-banner-image{transform:none !important}
+.shopify-section-group-footer-group{display:none !important}
+.ppcv2-footer{display:none !important}
+[id*="prototype_footer"]{display:none !important}
+
+/* ===== Global Green Footer ===== */
+.pp-global-footer{background:#06482e;color:#fff;padding:50px 28px 24px;font-family:'Montserrat',system-ui,-apple-system,sans-serif}
+.pp-global-footer .ppf-inner{max-width:1280px;margin:0 auto}
+.pp-global-footer .ppf-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;gap:34px}
+.pp-global-footer .ppf-grid h3{font-size:35px;font-weight:700;color:#fff;margin:0 0 12px;line-height:1.15}
+.pp-global-footer .ppf-grid p{font-size:14px;color:rgba(255,255,255,.72);margin:0 0 20px;line-height:1.5}
+.pp-global-footer .ppf-grid h4{font-size:20px;font-weight:700;color:#d9ff48;margin:0 0 16px}
+.pp-global-footer .ppf-grid a{display:block;font-size:14px;color:rgba(255,255,255,.72);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.pp-global-footer .ppf-grid a:hover{color:#fff}
+.pp-global-footer .ppf-email{display:flex;background:#fff;border-radius:999px;padding:6px;height:52px;margin-top:8px}
+.pp-global-footer .ppf-email input{flex:1;border:none;background:transparent;padding:0 16px;font-size:14px;color:#333;outline:none;font-family:inherit}
+.pp-global-footer .ppf-email input::placeholder{color:#999}
+.pp-global-footer .ppf-email button{background:#d9ff48;color:#06482e;border:none;border-radius:999px;padding:12px 16px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .2s}
+.pp-global-footer .ppf-email button:hover{background:#c8f030}
+.pp-global-footer .ppf-copyright{border-top:1px solid rgba(255,255,255,.16);margin-top:34px;padding-top:18px;font-size:13px;color:rgba(255,255,255,.6)}
+@media(max-width:768px){
+  .pp-global-footer{padding:40px 20px 20px}
+  .pp-global-footer .ppf-grid{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .pp-global-footer .ppf-grid>div:first-child{grid-column:1/-1}
+  .pp-global-footer .ppf-grid h3{font-size:26px}
+  .pp-global-footer .ppf-grid h4{font-size:16px}
+  .pp-global-footer .ppf-email{height:46px}
+}
+@media(max-width:480px){
+  .pp-global-footer .ppf-grid{grid-template-columns:1fr}
+}
+
+/* Video poster fallback for mobile */
+.pp-video-poster{display:none;width:100%;height:100%;object-fit:cover;object-position:center}
+@media(max-width:768px){
+  .pp-video-poster{display:block}
+  .pp-full-video{display:none !important}
+}
+</style>
+
+<script>
+(function(){
+  var isMobile=window.innerWidth<=768;
+  var posterUrl='https://cdn.shopify.com/s/files/1/0955/2137/4497/files/polkapop-hero-banner.png?v=1783056098&width=800';
+
+  /* === PERFORMANCE: Image optimization === */
+  function optimizeImages(){
+    var imgs=document.querySelectorAll('img:not([data-pp-opt])');
+    var vh=window.innerHeight;
+    imgs.forEach(function(img){
+      img.setAttribute('data-pp-opt','1');
+      var rect=img.getBoundingClientRect();
+      if(rect.top>vh*1.2 && !img.loading) img.loading='lazy';
+      var src=img.src||img.getAttribute('src')||'';
+      if(src.indexOf('cdn.shopify.com')!==-1 || src.indexOf('polkapop.in/cdn')!==-1){
+        var displayW=img.offsetWidth||img.clientWidth;
+        if(displayW>0 && displayW<450){
+          src=src.replace(/&width=\d+/,'&width=480').replace(/\?width=\d+/,'?width=480');
+          if(src.indexOf('width=')===-1) src+=(src.indexOf('?')!==-1?'&':'?')+'width=480';
+          img.src=src;
+          img.srcset='';
+        }
+        if(!img.hasAttribute('width') && img.naturalWidth>0){
+          img.setAttribute('width',img.naturalWidth);
+          img.setAttribute('height',img.naturalHeight);
+        }
+      }
+    });
+  }
+
+  /* === PERFORMANCE: Replace Wikipedia logos === */
+  function replaceExternalLogos(){
+    document.querySelectorAll('img').forEach(function(img){
+      var src=img.src||'';
+      if(src.indexOf('wikimedia.org')===-1 && src.indexOf('wikipedia.org')===-1) return;
+      var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('viewBox','0 0 92 28');svg.setAttribute('width','92');svg.setAttribute('height','28');svg.setAttribute('role','img');
+      var text=document.createElementNS('http://www.w3.org/2000/svg','text');
+      text.setAttribute('x','0');text.setAttribute('y','22');text.setAttribute('font-family','Inter,system-ui,sans-serif');text.setAttribute('font-size','22');text.setAttribute('font-weight','800');
+      if(src.indexOf('Swiggy')!==-1){svg.setAttribute('aria-label','Swiggy logo');text.setAttribute('fill','#FC8019');text.textContent='Swiggy';}
+      else if(src.indexOf('Zepto')!==-1){svg.setAttribute('aria-label','Zepto logo');svg.setAttribute('viewBox','0 0 72 28');svg.setAttribute('width','72');text.setAttribute('fill','#7B2D8E');text.textContent='Zepto';}
+      else if(src.indexOf('Blinkit')!==-1||src.indexOf('blinkit')!==-1){svg.setAttribute('aria-label','Blinkit logo');svg.setAttribute('viewBox','0 0 80 28');svg.setAttribute('width','80');text.setAttribute('fill','#0C831F');text.textContent='Blinkit';}
+      else return;
+      svg.appendChild(text);img.parentNode.replaceChild(svg,img);
+    });
+  }
+
+  /* === PERFORMANCE: Video — poster on mobile, lazy on desktop === */
+  function optimizeVideo(){
+    var videos=document.querySelectorAll('video');
+    videos.forEach(function(v){
+      if(isMobile){
+        v.pause();
+        v.removeAttribute('autoplay');
+        v.preload='none';
+        v.querySelectorAll('source').forEach(function(s){s.removeAttribute('src');});
+        v.load();
+        var poster=document.createElement('img');
+        poster.className='pp-video-poster';
+        poster.src=posterUrl;
+        poster.alt='Polka Pop sparkling water';
+        poster.loading='eager';
+        poster.fetchPriority='high';
+        poster.setAttribute('width','800');
+        poster.setAttribute('height','450');
+        v.parentNode.insertBefore(poster,v);
+        v.style.display='none';
+      } else {
+        v.poster=posterUrl;
+        v.preload='none';
+        var played=false;
+        var obs=new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting && !played){
+              played=true;
+              v.preload='auto';
+              v.play().catch(function(){});
+              obs.disconnect();
+            }
+          });
+        },{rootMargin:'100px'});
+        obs.observe(v);
+      }
+    });
+  }
+
+  /* === PERFORMANCE: Defer body Google Fonts === */
+  function deferFonts(){
+    document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]').forEach(function(link){
+      if(link.closest('head')) return;
+      var href=link.href;
+      var preload=document.createElement('link');
+      preload.rel='preload';preload.as='style';preload.href=href;
+      preload.onload=function(){this.onload=null;this.rel='stylesheet';};
+      link.parentNode.replaceChild(preload,link);
+    });
+  }
+
+  /* Run immediately */
+  deferFonts();
+  optimizeVideo();
+
+  document.addEventListener('DOMContentLoaded',function(){
+    optimizeImages();
+    replaceExternalLogos();
+    setTimeout(optimizeImages,2000);
+
+    /* Replace Zero Sugar emoji icon */
+    document.querySelectorAll('.ppcv2-i4 strong').forEach(function(el){
+      if(el.textContent.trim()==='✨'){
+        el.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="zsg" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs><path d="M12 2L14.5 8.5L21 6L16 12L21 18L14.5 15.5L12 22L9.5 15.5L3 18L8 12L3 6L9.5 8.5L12 2Z" fill="url(#zsg)"/><circle cx="12" cy="12" r="4.5" fill="white" stroke="url(#zsg)" stroke-width="1"/><text x="12" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="url(#zsg)">0</text></svg>';
+      }
+    });
+
+    /* Replace collection banner image */
+    var bannerImg=document.querySelector('.ppcv2-hero-banner-image');
+    if(bannerImg){bannerImg.src='https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Banner.png?v=1786420134';bannerImg.srcset='';}
+
+    /* Remove footer placeholder texts */
+    document.querySelectorAll('.copyright span').forEach(function(span){
+      var t=span.textContent.trim();
+      if(t.indexOf('Homepage redesign concept')!==-1) span.textContent='© 2026 Polka Pop.';
+      if(t.indexOf('Designed for Shopify homepage implementation')!==-1) span.remove();
+    });
+
+    /* Inject global green footer */
+    var footer=document.createElement('footer');
+    footer.className='pp-global-footer';
+    footer.innerHTML='<div class="ppf-inner"><div class="ppf-grid">'+
+      '<div><h3>Stay in the Pop Loop</h3><p>Get flavour drops, offers and mocktail ideas straight to your inbox.</p>'+
+      '<form class="ppf-email" method="post" action="/contact#contact_form"><input type="hidden" name="form_type" value="customer"><input type="hidden" name="utf8" value="✓"><input type="email" name="contact[email]" placeholder="Enter your email" required><button type="submit">Subscribe</button></form></div>'+
+      '<div><h4>Shop</h4><a href="/collections/all">All Flavours</a><a href="/collections/cranberry">Cranberry</a><a href="/collections/lemon-lime">Lemon Lime</a><a href="/collections/orange">Orange</a><a href="/collections/peach">Peach</a></div>'+
+      '<div><h4>Company</h4><a href="/blogs/news/about-us">About Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/privacy-policy">Privacy Policy</a><a href="#ppcv2-faq-heading">FAQs</a></div>'+
+      '<div><h4>Quick Commerce</h4><a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer">Swiggy</a><a href="https://www.zepto.com" target="_blank" rel="noopener noreferrer">Zepto</a><a href="https://www.blinkit.com" target="_blank" rel="noopener noreferrer">Blinkit</a></div>'+
+      '<div><h4>Social</h4><a href="https://www.instagram.com/polkapop.in/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.facebook.com/polkapopindia" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@polkapop" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://www.linkedin.com/company/polkapop" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>'+
+      '</div><div class="ppf-copyright">© 2026 Polka Pop.</div></div>';
+    document.body.appendChild(footer);
+  });
+})();
+</script>
+{% render 'pp-product-color' %}
+{% render 'pp-collection-page-patch' %}

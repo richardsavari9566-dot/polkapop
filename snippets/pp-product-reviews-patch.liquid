@@ -1,0 +1,161 @@
+<style>
+#pp-pdp #reviews .section-kicker,
+#pp-pdp #reviews .section-title,
+#pp-pdp #reviews .reviews-card{display:none !important}
+
+#pp-pdp .pdp-recipe-showcase{padding:0 !important;background:none !important}
+#pp-pdp .pdp-recipe-photo{width:100% !important;height:100% !important;max-width:100% !important;max-height:100% !important;object-fit:cover !important;border-radius:16px !important;animation:none !important;filter:none !important}
+
+.pp-ptr-section{padding:60px 0;background:transparent;overflow:hidden}
+.pp-ptr-section h2{text-align:center;font-size:28px;font-weight:800;color:#1a1a1a;margin:0 0 48px;font-family:inherit;letter-spacing:-.03em}
+.pp-ptr-wrap{max-width:1100px;margin:0 auto;overflow:hidden;padding:0 24px;position:relative}
+.pp-ptr-track{display:flex;transition:transform .5s ease;gap:20px}
+.pp-ptr-card{flex:0 0 calc(33.333% - 14px);background:#fff;border-radius:16px;padding:30px 24px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;text-align:center;min-width:0}
+.pp-ptr-card.is-center{transform:scale(1.05);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.pp-ptr-card .av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#e0e7ff,#c7d2fe);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;overflow:hidden;position:relative}
+.pp-ptr-card .av::after{content:'';position:absolute;inset:-10px;border:1px dashed rgba(0,0,0,.15);border-radius:50%}
+.pp-ptr-card .av svg{width:44px;height:44px}
+.pp-ptr-card .bd{font-size:14px;line-height:1.65;color:#555;margin-bottom:16px;font-style:italic}
+.pp-ptr-card .st{color:#facc15;font-size:17px;letter-spacing:2px;margin-bottom:6px}
+.pp-ptr-card .nm{font-weight:700;font-size:15px;color:#1a1a1a}
+.pp-ptr-card .rl{font-size:12px;color:#999;margin-top:2px}
+.pp-ptr-dots{display:flex;justify-content:center;gap:8px;margin-top:28px}
+.pp-ptr-dots button{width:10px;height:10px;border-radius:50%;background:#ccc;border:none;cursor:pointer;padding:0;transition:background .3s}
+.pp-ptr-dots button.on{background:#38bdf8}
+.pp-ptr-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#fff;border:1px solid #e5e7eb;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#666;box-shadow:0 2px 6px rgba(0,0,0,.08);z-index:2}
+.pp-ptr-arrow:hover{background:#f0f0f0}
+.pp-ptr-arrow.al{left:0}
+.pp-ptr-arrow.ar{right:0}
+@media(max-width:900px){.pp-ptr-card{flex:0 0 calc(50% - 10px)}}
+@media(max-width:600px){.pp-ptr-card{flex:0 0 100%}}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var target=document.querySelector('#pp-pdp #reviews');
+  if(!target) return;
+
+  var femaleAvatar='<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="22" r="10" fill="#7c3aed"/><ellipse cx="32" cy="52" rx="18" ry="14" fill="#7c3aed"/><circle cx="32" cy="22" r="9" fill="#a78bfa"/><path d="M23 18c0-6 4-12 9-12s9 6 9 12" fill="#6d28d9"/><ellipse cx="32" cy="52" rx="16" ry="12" fill="#a78bfa"/></svg>';
+  var maleAvatar='<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="22" r="10" fill="#4f46e5"/><ellipse cx="32" cy="52" rx="18" ry="14" fill="#4f46e5"/><circle cx="32" cy="22" r="9" fill="#818cf8"/><rect x="24" y="12" width="16" height="6" rx="3" fill="#3730a3"/><ellipse cx="32" cy="52" rx="16" ry="12" fill="#818cf8"/></svg>';
+
+  var html='<div class="pp-ptr-section">';
+  html+='<h2>Testimonials</h2>';
+  html+='<div class="pp-ptr-wrap" id="ppPtrWrap">';
+  html+='<button class="pp-ptr-arrow al" id="ppPtrL" aria-label="Previous">&lsaquo;</button>';
+  html+='<div style="overflow:hidden"><div class="pp-ptr-track" id="ppPtrT">';
+
+  var reviews=[
+    {av:femaleAvatar,n:'Priya Sharma',s:'★★★★★',t:'The Blueberry flavour is absolutely divine. I switched from regular soda three months ago and honestly cannot go back. It has just the right amount of fizz with a natural berry taste that feels so refreshing after a long day.'},
+    {av:maleAvatar,n:'Arjun Mehta',s:'★★★★★',t:'Bought the Blueberry pack for a house party and it was an instant hit. Everyone kept asking where I got it from. No added sugar, no artificial aftertaste — just clean, fruity sparkling water. Already ordered my second case.'},
+    {av:femaleAvatar,n:'Kavitha Ramesh',s:'★★★★☆',t:'My kids are obsessed with the Blueberry PolkaPop. As a parent, I feel great giving them something fizzy that is actually healthy. The flavour is subtle and natural — not overly sweet like other drinks on the market.'},
+    {av:maleAvatar,n:'Rohit Desai',s:'★★★★★',t:'Perfect post-workout refreshment. The Blueberry variant is light, crisp, and genuinely hydrating. I keep a couple of cans in my gym bag at all times now. Tastes like a treat but without any of the guilt.'},
+    {av:femaleAvatar,n:'Sneha Iyer',s:'★★★★☆',t:'I have tried almost every sparkling water brand available in India and the PolkaPop Blueberry is hands down the best. The berry aroma hits you the moment you open the can. I recommend it to literally everyone I know.'}
+  ];
+
+  reviews.forEach(function(r){
+    html+='<div class="pp-ptr-card">';
+    html+='<div class="av">'+r.av+'</div>';
+    html+='<p class="bd">'+r.t+'</p>';
+    html+='<div class="st">'+r.s+'</div>';
+    html+='<div class="nm">'+r.n+'</div>';
+    html+='<div class="rl">Verified Buyer</div>';
+    html+='</div>';
+  });
+
+  html+='</div></div>';
+  html+='<button class="pp-ptr-arrow ar" id="ppPtrR" aria-label="Next">&rsaquo;</button>';
+  html+='<div class="pp-ptr-dots" id="ppPtrD"></div>';
+  html+='</div></div>';
+
+  target.insertAdjacentHTML('beforeend',html);
+
+  var track=document.getElementById('ppPtrT'),
+      cards=track.querySelectorAll('.pp-ptr-card'),
+      dw=document.getElementById('ppPtrD'),
+      wrap=document.getElementById('ppPtrWrap'),
+      n=cards.length,idx=0,autoTimer=null;
+
+  function v(){return innerWidth<=600?1:innerWidth<=900?2:3}
+  function go(){
+    var vis=v(),p=100/vis;
+    track.style.transform='translateX(-'+idx*p+'%)';
+    cards.forEach(function(c,i){c.classList.toggle('is-center',i===idx+Math.floor(vis/2))});
+    dw.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('on',i===idx)});
+  }
+  function dots(){
+    dw.innerHTML='';
+    var vis=v(),pages=Math.max(n-vis+1,1);
+    for(var i=0;i<pages;i++){
+      var b=document.createElement('button');
+      b.className=i===0?'on':'';
+      b.dataset.i=i;
+      b.addEventListener('click',function(){idx=+this.dataset.i;go();restartAuto()});
+      dw.appendChild(b);
+    }
+  }
+
+  function advance(){
+    var vis=v();
+    if(idx<n-vis) idx++; else idx=0;
+    go();
+  }
+  function startAuto(){stopAuto();autoTimer=setInterval(advance,4000);}
+  function stopAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;}}
+  function restartAuto(){startAuto();}
+
+  wrap.addEventListener('mouseenter',stopAuto);
+  wrap.addEventListener('mouseleave',startAuto);
+  wrap.addEventListener('touchstart',stopAuto,{passive:true});
+  wrap.addEventListener('touchend',function(){setTimeout(startAuto,3000)});
+
+  dots();go();startAuto();
+
+  document.getElementById('ppPtrL').onclick=function(){if(idx>0){idx--;go();restartAuto()}};
+  document.getElementById('ppPtrR').onclick=function(){var vis=v();if(idx<n-vis){idx++;go();restartAuto();}else{idx=0;go();restartAuto();}};
+
+  var sx;
+  track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  track.addEventListener('touchend',function(e){
+    var d=sx-e.changedTouches[0].clientX;
+    if(d>40){var vis=v();if(idx<n-vis)idx++;else idx=0;}
+    else if(d<-40){if(idx>0)idx--;else idx=n-v();}
+    go();
+  });
+
+  var rt;
+  addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){idx=0;dots();go()},200)});
+
+  /* Swap recipe image per tab */
+  var recipeImg=document.querySelector('.pdp-recipe-photo');
+  if(recipeImg){
+    var recipeImages={
+      0:'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/ChatGPT_Image_Aug_27_2026_11_00_38_AM_1.png?v=1787889667',
+      1:'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Blueberry_Lemon_Sparkling_Kitchen_Still_Life.png?v=1787889667',
+      2:'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Blueberry_Mint_Spritz_with_Lime.png?v=1787889667',
+      3:'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Generated_image__Sparkling_Blueberry_Mint_Mocktail.png?v=1787889667',
+      4:'https://cdn.shopify.com/s/files/1/0955/2137/4497/files/Generated_image__Blueberry_Sparkling_Water_Still_Life.png?v=1787889667'
+    };
+    recipeImg.src=recipeImages[0];
+    recipeImg.srcset='';
+    var recipeTabs=document.querySelectorAll('.pdp-recipe-tab');
+    recipeTabs.forEach(function(tab){
+      tab.addEventListener('click',function(){
+        var i=+this.dataset.index;
+        setTimeout(function(){
+          recipeImg.src=recipeImages[i];
+          recipeImg.srcset='';
+        },100);
+      });
+    });
+  }
+
+  /* Remove Instagram embed DHoHEsISQ3Y from Loved by Customers */
+  document.querySelectorAll('iframe').forEach(function(f){
+    var src=f.src||f.dataset.src||'';
+    if(src.indexOf('DHoHEsISQ3Y')!==-1){
+      var card=f.closest('.ig-card')||f.parentElement;
+      if(card) card.remove();
+    }
+  });
+});
+</script>

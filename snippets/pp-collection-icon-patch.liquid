@@ -92,6 +92,7 @@
   function optimizeVideo(){
     var videos=document.querySelectorAll('video');
     videos.forEach(function(v){
+      if(v.closest('.pp-split-video-hero')) return;
       if(isMobile){
         v.pause();
         v.removeAttribute('autoplay');

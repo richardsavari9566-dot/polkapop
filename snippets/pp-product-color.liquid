@@ -179,94 +179,94 @@
     document.querySelectorAll('#pp-pdp .option.active').forEach(function(o){o.style.setProperty('border-color',pc,'important');o.style.setProperty('box-shadow','inset 0 0 0 1px '+pc,'important');o.style.setProperty('background',light,'important');});
   }
   function rearrangePanel(){
-    var panel=document.querySelector(‘#pp-pdp .product-panel’);
+    var panel=document.querySelector('#pp-pdp .product-panel');
     if(!panel) return;
-    var price=panel.querySelector(‘.price’);
-    var lead=panel.querySelector(‘.lead’);
-    var fieldLabels=panel.querySelectorAll(‘.field-label’);
+    var price=panel.querySelector('.price');
+    var lead=panel.querySelector('.lead');
+    var fieldLabels=panel.querySelectorAll('.field-label');
     var packLabel=null,qtyLabel=null;
     fieldLabels.forEach(function(fl){
       var t=fl.textContent.trim().toLowerCase();
-      if(t.indexOf(‘pack’)!==-1) packLabel=fl;
-      if(t.indexOf(‘quantity’)!==-1) qtyLabel=fl;
+      if(t.indexOf('pack')!==-1) packLabel=fl;
+      if(t.indexOf('quantity')!==-1) qtyLabel=fl;
     });
-    var optionRow=panel.querySelector(‘#packOptions,.option-row’);
-    var purchaseRow=panel.querySelector(‘.purchase-row’);
-    var buyNow=panel.querySelector(‘#buyNow’);
+    var optionRow=panel.querySelector('#packOptions,.option-row');
+    var purchaseRow=panel.querySelector('.purchase-row');
+    var buyNow=panel.querySelector('#buyNow');
 
     /* 1. Read more on lead paragraph */
     if(lead){
-      var wrap=document.createElement(‘div’);
-      wrap.className=’pp-lead-wrap’;
+      var wrap=document.createElement('div');
+      wrap.className='pp-lead-wrap';
       lead.parentNode.insertBefore(wrap,lead);
       wrap.appendChild(lead);
-      var toggleBtn=document.createElement(‘button’);
-      toggleBtn.type=’button’;
-      toggleBtn.className=’pp-readmore-toggle’;
-      toggleBtn.textContent=’Read more’;
+      var toggleBtn=document.createElement('button');
+      toggleBtn.type='button';
+      toggleBtn.className='pp-readmore-toggle';
+      toggleBtn.textContent='Read more';
       wrap.appendChild(toggleBtn);
-      var moreText=document.createElement(‘div’);
-      moreText.className=’pp-readmore-text’;
-      moreText.textContent=’Naturally flavoured with a crisp, tart fruity finish, lightly sparkling and best served chilled, on its own or as a cocktail mixer.’;
+      var moreText=document.createElement('div');
+      moreText.className='pp-readmore-text';
+      moreText.textContent='Naturally flavoured with a crisp, tart fruity finish, lightly sparkling and best served chilled, on its own or as a cocktail mixer.';
       wrap.appendChild(moreText);
-      toggleBtn.addEventListener(‘click’,function(){
-        var open=moreText.classList.toggle(‘is-open’);
-        toggleBtn.textContent=open?’Read less’:’Read more’;
+      toggleBtn.addEventListener('click',function(){
+        var open=moreText.classList.toggle('is-open');
+        toggleBtn.textContent=open?'Read less':'Read more';
       });
     }
 
     /* 2. Remove "Save more on larger packs" and qty label */
     if(packLabel){
-      var small=packLabel.querySelector(‘small’);
+      var small=packLabel.querySelector('small');
       if(small) small.remove();
     }
-    if(qtyLabel) qtyLabel.style.display=’none’;
+    if(qtyLabel) qtyLabel.style.display='none';
 
     /* 3. Wrap pack label + Notify Me in a row */
     if(packLabel){
-      var labelRow=document.createElement(‘div’);
-      labelRow.className=’pp-pack-label-row’;
+      var labelRow=document.createElement('div');
+      labelRow.className='pp-pack-label-row';
       packLabel.parentNode.insertBefore(labelRow,packLabel);
       labelRow.appendChild(packLabel);
-      var notifyLink=document.createElement(‘button’);
-      notifyLink.type=’button’;
-      notifyLink.className=’pp-notify-link’;
-      notifyLink.innerHTML=’<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Notify Me’;
+      var notifyLink=document.createElement('button');
+      notifyLink.type='button';
+      notifyLink.className='pp-notify-link';
+      notifyLink.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Notify Me';
       labelRow.appendChild(notifyLink);
 
       /* Notify Me modal */
-      var overlay=document.createElement(‘div’);
-      overlay.className=’pp-notify-overlay’;
-      overlay.innerHTML=’<div class="pp-notify-modal">’+
-        ‘<button class="pp-nm-close" aria-label="Close">&times;</button>’+
-        ‘<div class="pp-nm-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>’+
-        ‘<h3>Get Notified</h3>’+
-        ‘<p>Enter your email and we’ll let you know about restocks, new flavours and exclusive drops.</p>’+
-        ‘<form class="pp-nm-form" method="post" action="/contact#contact_form">’+
-          ‘<input type="hidden" name="form_type" value="customer">’+
-          ‘<input type="hidden" name="utf8" value="✓">’+
-          ‘<input type="hidden" name="contact[tags]" value="notify-me">’+
-          ‘<input class="pp-nm-input" type="email" name="contact[email]" placeholder="Enter your email" required>’+
-          ‘<button class="pp-nm-submit" type="submit">Notify Me</button>’+
-        ‘</form>’+
-      ‘</div>’;
+      var overlay=document.createElement('div');
+      overlay.className='pp-notify-overlay';
+      overlay.innerHTML='<div class="pp-notify-modal">'+
+        '<button class="pp-nm-close" aria-label="Close">&times;</button>'+
+        '<div class="pp-nm-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>'+
+        '<h3>Get Notified</h3>'+
+        '<p>Enter your email and we'll let you know about restocks, new flavours and exclusive drops.</p>'+
+        '<form class="pp-nm-form" method="post" action="/contact#contact_form">'+
+          '<input type="hidden" name="form_type" value="customer">'+
+          '<input type="hidden" name="utf8" value="✓">'+
+          '<input type="hidden" name="contact[tags]" value="notify-me">'+
+          '<input class="pp-nm-input" type="email" name="contact[email]" placeholder="Enter your email" required>'+
+          '<button class="pp-nm-submit" type="submit">Notify Me</button>'+
+        '</form>'+
+      '</div>';
       document.body.appendChild(overlay);
-      notifyLink.addEventListener(‘click’,function(){overlay.classList.add(‘is-open’);});
-      overlay.querySelector(‘.pp-nm-close’).addEventListener(‘click’,function(){overlay.classList.remove(‘is-open’);});
-      overlay.addEventListener(‘click’,function(e){if(e.target===overlay) overlay.classList.remove(‘is-open’);});
-      var form=overlay.querySelector(‘.pp-nm-form’);
-      form.addEventListener(‘submit’,function(e){
+      notifyLink.addEventListener('click',function(){overlay.classList.add('is-open');});
+      overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
+      overlay.addEventListener('click',function(e){if(e.target===overlay) overlay.classList.remove('is-open');});
+      var form=overlay.querySelector('.pp-nm-form');
+      form.addEventListener('submit',function(e){
         e.preventDefault();
-        var email=form.querySelector(‘input[type="email"]’).value;
+        var email=form.querySelector('input[type="email"]').value;
         var fd=new FormData(form);
-        fetch(‘/contact#contact_form’,{method:’POST’,body:fd,headers:{‘X-Requested-With’:’XMLHttpRequest’}}).then(function(){
-          overlay.querySelector(‘.pp-notify-modal’).innerHTML=’<button class="pp-nm-close" aria-label="Close">&times;</button>’+
-            ‘<div class="pp-nm-success">’+
-              ‘<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="’+light+’"/><path d="M15 24l6 6 12-12" stroke="’+pc+’" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>’+
-              ‘<h3>You’re on the list!</h3>’+
-              ‘<p style="color:#666;font-size:14px">We’ll email you at <strong>’+email+’</strong> with updates.</p>’+
-            ‘</div>’;
-          overlay.querySelector(‘.pp-nm-close’).addEventListener(‘click’,function(){overlay.classList.remove(‘is-open’);});
+        fetch('/contact#contact_form',{method:'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(){
+          overlay.querySelector('.pp-notify-modal').innerHTML='<button class="pp-nm-close" aria-label="Close">&times;</button>'+
+            '<div class="pp-nm-success">'+
+              '<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="'+light+'"/><path d="M15 24l6 6 12-12" stroke="'+pc+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+              '<h3>You're on the list!</h3>'+
+              '<p style="color:#666;font-size:14px">We'll email you at <strong>'+email+'</strong> with updates.</p>'+
+            '</div>';
+          overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
         }).catch(function(){form.submit();});
       });
     }
@@ -277,21 +277,21 @@
     }
 
     /* 5. Add to cart → show qty on click */
-    var addBtn=purchaseRow&&purchaseRow.querySelector(‘.add-cart’);
+    var addBtn=purchaseRow&&purchaseRow.querySelector('.add-cart');
     if(addBtn){
       var origHTML=addBtn.innerHTML;
       var cartQty=1;
-      addBtn.addEventListener(‘click’,function(e){
-        if(!addBtn.classList.contains(‘pp-added’)){
-          addBtn.classList.add(‘pp-added’);
-          addBtn.innerHTML=’<span class="pp-qty-inline"><button type="button" data-dir="-">&minus;</button><output>’+cartQty+’</output><button type="button" data-dir="+">+</button></span>’;
-          addBtn.querySelector(‘[data-dir="-"]’).addEventListener(‘click’,function(ev){
+      addBtn.addEventListener('click',function(e){
+        if(!addBtn.classList.contains('pp-added')){
+          addBtn.classList.add('pp-added');
+          addBtn.innerHTML='<span class="pp-qty-inline"><button type="button" data-dir="-">&minus;</button><output>'+cartQty+'</output><button type="button" data-dir="+">+</button></span>';
+          addBtn.querySelector('[data-dir="-"]').addEventListener('click',function(ev){
             ev.stopPropagation();
-            if(cartQty>1){cartQty--;addBtn.querySelector(‘output’).textContent=cartQty;}
+            if(cartQty>1){cartQty--;addBtn.querySelector('output').textContent=cartQty;}
           });
-          addBtn.querySelector(‘[data-dir="+"]’).addEventListener(‘click’,function(ev){
+          addBtn.querySelector('[data-dir="+"]').addEventListener('click',function(ev){
             ev.stopPropagation();
-            cartQty++;addBtn.querySelector(‘output’).textContent=cartQty;
+            cartQty++;addBtn.querySelector('output').textContent=cartQty;
           });
         }
       });
@@ -307,8 +307,8 @@
     }
 
     /* 7. Reorder DOM: lead wrap → price → pack label row → option row → purchase row */
-    var leadWrap=lead&&lead.closest(‘.pp-lead-wrap’);
-    var plr=panel.querySelector(‘.pp-pack-label-row’);
+    var leadWrap=lead&&lead.closest('.pp-lead-wrap');
+    var plr=panel.querySelector('.pp-pack-label-row');
     var elems=[];
     if(leadWrap) elems.push(leadWrap);
     if(price) elems.push(price);
@@ -322,7 +322,7 @@
       refNode=elems[i];
     }
   }
-  if(document.readyState===’loading’){document.addEventListener(‘DOMContentLoaded’,function(){applyColors();rearrangePanel();});}else{applyColors();rearrangePanel();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){applyColors();rearrangePanel();});}else{applyColors();rearrangePanel();}
   setTimeout(applyColors,500);
   var pdpEl=document.querySelector('#pp-pdp');
   if(pdpEl&&pdpEl.previousSibling&&pdpEl.previousSibling.nodeType===3){pdpEl.parentNode.removeChild(pdpEl.previousSibling);}

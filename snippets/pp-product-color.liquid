@@ -115,14 +115,33 @@
 #pp-pdp .benefit{border-color:{{ pc_soft }} !important}
 .pp-ptr-dots button.on{background:{{ pc }} !important}
 #pp-pdp .product-editorial-intro{display:none !important}
-/* Notify Me button + rearranged purchase layout */
-#pp-pdp .purchase-row{display:grid !important;grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:10px !important;align-items:stretch}
-#pp-pdp .purchase-row .qty{grid-column:1;grid-row:1}
-#pp-pdp .purchase-row .pp-notify-btn{grid-column:2;grid-row:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:transparent;border:2px solid {{ pc }};color:{{ pc }};border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;padding:0 18px;font-family:inherit;transition:background .2s,color .2s}
-#pp-pdp .purchase-row .pp-notify-btn:hover{background:{{ pc_soft }}}
-#pp-pdp .purchase-row .pp-notify-btn svg{width:16px;height:16px;fill:currentColor}
-#pp-pdp .purchase-row .primary.add-cart{grid-column:1;grid-row:2}
-#pp-pdp .purchase-row #buyNow{grid-column:2;grid-row:2;margin-top:0 !important;width:auto !important}
+/* Rearranged purchase layout */
+#pp-pdp .purchase-row{display:flex !important;gap:10px !important;align-items:stretch}
+#pp-pdp .purchase-row .qty{display:none !important}
+#pp-pdp .purchase-row.has-qty .qty{display:grid !important}
+#pp-pdp .purchase-row .primary.add-cart{flex:1}
+#pp-pdp .purchase-row #buyNow{flex:1;margin-top:0 !important;width:auto !important}
+/* Qty counter inside add-to-cart after click */
+#pp-pdp .pp-qty-inline{display:inline-flex;align-items:center;gap:8px}
+#pp-pdp .pp-qty-inline button{background:none;border:none;font-size:18px;font-weight:700;cursor:pointer;color:#062f28;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+#pp-pdp .pp-qty-inline button:hover{background:rgba(0,0,0,.06)}
+#pp-pdp .pp-qty-inline output{font-weight:800;font-size:15px;min-width:20px;text-align:center}
+/* Pack size label row with Notify Me */
+#pp-pdp .pp-pack-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+#pp-pdp .pp-pack-label-row .field-label{margin:0 !important}
+#pp-pdp .pp-notify-link{display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:{{ pc }};font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;padding:0;transition:opacity .2s}
+#pp-pdp .pp-notify-link:hover{opacity:.7}
+#pp-pdp .pp-notify-link svg{width:14px;height:14px;fill:currentColor}
+/* Read more toggle */
+#pp-pdp .pp-lead-wrap{margin:8px 0 16px}
+#pp-pdp .pp-lead-wrap .lead{display:inline !important;margin:0 !important}
+#pp-pdp .pp-readmore-toggle{background:none;border:none;color:{{ pc }};font-size:inherit;font-weight:700;cursor:pointer;padding:0;font-family:inherit}
+#pp-pdp .pp-readmore-toggle:hover{text-decoration:underline}
+#pp-pdp .pp-readmore-text{display:none;margin-top:6px;font-size:14px;color:#555;line-height:1.6}
+#pp-pdp .pp-readmore-text.is-open{display:block}
+/* Pack option unselected state — visible border */
+#pp-pdp .option{border:2px solid rgba(0,0,0,.15) !important;background:#fff !important}
+#pp-pdp .option.active{border-color:{{ pc }} !important;background:{{ pc_soft }} !important;box-shadow:inset 0 0 0 1px {{ pc }} !important}
 /* Notify Me modal */
 .pp-notify-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
 .pp-notify-overlay.is-open{opacity:1;pointer-events:auto}
@@ -157,54 +176,140 @@
     if(nb){nb.style.setProperty('background',pc,'important');nb.style.setProperty('color',lt,'important');}
     document.querySelectorAll('#pp-pdp .option.active').forEach(function(o){o.style.setProperty('border-color',pc,'important');o.style.setProperty('box-shadow','inset 0 0 0 1px '+pc,'important');o.style.setProperty('background',light,'important');});
   }
-  function rearrangeButtons(){
-    var row=document.querySelector('#pp-pdp .purchase-row');
-    var buyNow=document.querySelector('#pp-pdp #buyNow');
-    var qty=row&&row.querySelector('.qty');
-    if(!row||!buyNow||!qty) return;
-    buyNow.style.marginTop='0';
-    row.appendChild(buyNow);
-    var notifyBtn=document.createElement('button');
-    notifyBtn.type='button';
-    notifyBtn.className='pp-notify-btn';
-    notifyBtn.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Notify Me';
-    qty.insertAdjacentElement('afterend',notifyBtn);
-    var overlay=document.createElement('div');
-    overlay.className='pp-notify-overlay';
-    overlay.innerHTML='<div class="pp-notify-modal">'+
-      '<button class="pp-nm-close" aria-label="Close">&times;</button>'+
-      '<div class="pp-nm-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>'+
-      '<h3>Get Notified</h3>'+
-      '<p>Enter your email and we’ll let you know about restocks, new flavours and exclusive drops.</p>'+
-      '<form class="pp-nm-form" method="post" action="/contact#contact_form">'+
-        '<input type="hidden" name="form_type" value="customer">'+
-        '<input type="hidden" name="utf8" value="✓">'+
-        '<input type="hidden" name="contact[tags]" value="notify-me,'+('{{ product.title }}'.replace(/'/g,''))+'">'+
-        '<input class="pp-nm-input" type="email" name="contact[email]" placeholder="Enter your email" required>'+
-        '<button class="pp-nm-submit" type="submit">Notify Me</button>'+
-      '</form>'+
-    '</div>';
-    document.body.appendChild(overlay);
-    notifyBtn.addEventListener('click',function(){overlay.classList.add('is-open');});
-    overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
-    overlay.addEventListener('click',function(e){if(e.target===overlay) overlay.classList.remove('is-open');});
-    var form=overlay.querySelector('.pp-nm-form');
-    form.addEventListener('submit',function(e){
-      e.preventDefault();
-      var email=form.querySelector('input[type="email"]').value;
-      var fd=new FormData(form);
-      fetch('/contact#contact_form',{method:'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(){
-        overlay.querySelector('.pp-notify-modal').innerHTML='<button class="pp-nm-close" aria-label="Close">&times;</button>'+
-          '<div class="pp-nm-success">'+
-            '<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="'+light+'"/><path d="M15 24l6 6 12-12" stroke="'+pc+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
-            '<h3>You’re on the list!</h3>'+
-            '<p style="color:#666;font-size:14px">We’ll email you at <strong>'+email+'</strong> with updates.</p>'+
-          '</div>';
-        overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
-      }).catch(function(){form.submit();});
+  function rearrangePanel(){
+    var panel=document.querySelector(‘#pp-pdp .product-panel’);
+    if(!panel) return;
+    var price=panel.querySelector(‘.price’);
+    var lead=panel.querySelector(‘.lead’);
+    var fieldLabels=panel.querySelectorAll(‘.field-label’);
+    var packLabel=null,qtyLabel=null;
+    fieldLabels.forEach(function(fl){
+      var t=fl.textContent.trim().toLowerCase();
+      if(t.indexOf(‘pack’)!==-1) packLabel=fl;
+      if(t.indexOf(‘quantity’)!==-1) qtyLabel=fl;
     });
+    var optionRow=panel.querySelector(‘#packOptions,.option-row’);
+    var purchaseRow=panel.querySelector(‘.purchase-row’);
+    var buyNow=panel.querySelector(‘#buyNow’);
+
+    /* 1. Read more on lead paragraph */
+    if(lead){
+      var wrap=document.createElement(‘div’);
+      wrap.className=’pp-lead-wrap’;
+      lead.parentNode.insertBefore(wrap,lead);
+      wrap.appendChild(lead);
+      var toggleBtn=document.createElement(‘button’);
+      toggleBtn.type=’button’;
+      toggleBtn.className=’pp-readmore-toggle’;
+      toggleBtn.textContent=’Read more’;
+      wrap.appendChild(toggleBtn);
+      var moreText=document.createElement(‘div’);
+      moreText.className=’pp-readmore-text’;
+      moreText.textContent=’Naturally flavoured with a crisp, tart fruity finish, lightly sparkling and best served chilled, on its own or as a cocktail mixer.’;
+      wrap.appendChild(moreText);
+      toggleBtn.addEventListener(‘click’,function(){
+        var open=moreText.classList.toggle(‘is-open’);
+        toggleBtn.textContent=open?’Read less’:’Read more’;
+      });
+    }
+
+    /* 2. Remove "Save more on larger packs" and qty label */
+    if(packLabel){
+      var small=packLabel.querySelector(‘small’);
+      if(small) small.remove();
+    }
+    if(qtyLabel) qtyLabel.style.display=’none’;
+
+    /* 3. Wrap pack label + Notify Me in a row */
+    if(packLabel){
+      var labelRow=document.createElement(‘div’);
+      labelRow.className=’pp-pack-label-row’;
+      packLabel.parentNode.insertBefore(labelRow,packLabel);
+      labelRow.appendChild(packLabel);
+      var notifyLink=document.createElement(‘button’);
+      notifyLink.type=’button’;
+      notifyLink.className=’pp-notify-link’;
+      notifyLink.innerHTML=’<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Notify Me’;
+      labelRow.appendChild(notifyLink);
+
+      /* Notify Me modal */
+      var overlay=document.createElement(‘div’);
+      overlay.className=’pp-notify-overlay’;
+      overlay.innerHTML=’<div class="pp-notify-modal">’+
+        ‘<button class="pp-nm-close" aria-label="Close">&times;</button>’+
+        ‘<div class="pp-nm-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>’+
+        ‘<h3>Get Notified</h3>’+
+        ‘<p>Enter your email and we’ll let you know about restocks, new flavours and exclusive drops.</p>’+
+        ‘<form class="pp-nm-form" method="post" action="/contact#contact_form">’+
+          ‘<input type="hidden" name="form_type" value="customer">’+
+          ‘<input type="hidden" name="utf8" value="✓">’+
+          ‘<input type="hidden" name="contact[tags]" value="notify-me">’+
+          ‘<input class="pp-nm-input" type="email" name="contact[email]" placeholder="Enter your email" required>’+
+          ‘<button class="pp-nm-submit" type="submit">Notify Me</button>’+
+        ‘</form>’+
+      ‘</div>’;
+      document.body.appendChild(overlay);
+      notifyLink.addEventListener(‘click’,function(){overlay.classList.add(‘is-open’);});
+      overlay.querySelector(‘.pp-nm-close’).addEventListener(‘click’,function(){overlay.classList.remove(‘is-open’);});
+      overlay.addEventListener(‘click’,function(e){if(e.target===overlay) overlay.classList.remove(‘is-open’);});
+      var form=overlay.querySelector(‘.pp-nm-form’);
+      form.addEventListener(‘submit’,function(e){
+        e.preventDefault();
+        var email=form.querySelector(‘input[type="email"]’).value;
+        var fd=new FormData(form);
+        fetch(‘/contact#contact_form’,{method:’POST’,body:fd,headers:{‘X-Requested-With’:’XMLHttpRequest’}}).then(function(){
+          overlay.querySelector(‘.pp-notify-modal’).innerHTML=’<button class="pp-nm-close" aria-label="Close">&times;</button>’+
+            ‘<div class="pp-nm-success">’+
+              ‘<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="’+light+’"/><path d="M15 24l6 6 12-12" stroke="’+pc+’" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>’+
+              ‘<h3>You’re on the list!</h3>’+
+              ‘<p style="color:#666;font-size:14px">We’ll email you at <strong>’+email+’</strong> with updates.</p>’+
+            ‘</div>’;
+          overlay.querySelector(‘.pp-nm-close’).addEventListener(‘click’,function(){overlay.classList.remove(‘is-open’);});
+        }).catch(function(){form.submit();});
+      });
+    }
+
+    /* 4. Move Buy Now into purchase row, hide qty */
+    if(purchaseRow&&buyNow){
+      purchaseRow.appendChild(buyNow);
+    }
+
+    /* 5. Add to cart → show qty on click */
+    var addBtn=purchaseRow&&purchaseRow.querySelector(‘.add-cart’);
+    if(addBtn){
+      var origHTML=addBtn.innerHTML;
+      var cartQty=1;
+      addBtn.addEventListener(‘click’,function(e){
+        if(!addBtn.classList.contains(‘pp-added’)){
+          addBtn.classList.add(‘pp-added’);
+          addBtn.innerHTML=’<span class="pp-qty-inline"><button type="button" data-dir="-">&minus;</button><output>’+cartQty+’</output><button type="button" data-dir="+">+</button></span>’;
+          addBtn.querySelector(‘[data-dir="-"]’).addEventListener(‘click’,function(ev){
+            ev.stopPropagation();
+            if(cartQty>1){cartQty--;addBtn.querySelector(‘output’).textContent=cartQty;}
+          });
+          addBtn.querySelector(‘[data-dir="+"]’).addEventListener(‘click’,function(ev){
+            ev.stopPropagation();
+            cartQty++;addBtn.querySelector(‘output’).textContent=cartQty;
+          });
+        }
+      });
+    }
+
+    /* 6. Reorder DOM: price → lead wrap → pack label row → option row → purchase row */
+    var anchor=price||lead;
+    if(!anchor) return;
+    var parent=anchor.parentNode;
+    var refNode=anchor.nextSibling;
+    var elems=[];
+    if(price) elems.push(price);
+    if(lead&&lead.closest(‘.pp-lead-wrap’)) elems.push(lead.closest(‘.pp-lead-wrap’));
+    var plr=panel.querySelector(‘.pp-pack-label-row’);
+    if(plr) elems.push(plr);
+    if(optionRow) elems.push(optionRow);
+    if(purchaseRow) elems.push(purchaseRow);
+    elems.forEach(function(el){parent.appendChild(el);});
   }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){applyColors();rearrangeButtons();});}else{applyColors();rearrangeButtons();}
+  if(document.readyState===’loading’){document.addEventListener(‘DOMContentLoaded’,function(){applyColors();rearrangePanel();});}else{applyColors();rearrangePanel();}
   setTimeout(applyColors,500);
   var pdpEl=document.querySelector('#pp-pdp');
   if(pdpEl&&pdpEl.previousSibling&&pdpEl.previousSibling.nodeType===3){pdpEl.parentNode.removeChild(pdpEl.previousSibling);}

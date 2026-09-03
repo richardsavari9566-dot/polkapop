@@ -485,10 +485,7 @@ body:has(.polkapop-prototype-section) main, body:has(.polkapop-prototype-section
         if (whyTag) whyTag.textContent = card.dataset.tag || '';
         if (whyTitle) whyTitle.textContent = card.dataset.title || '';
         if (whyText) whyText.textContent = card.dataset.text || '';
-        if (whyBottle) {
-          whyBottle.src = card.dataset.img || whyBottle.src;
-          whyBottle.alt = (card.dataset.tag || 'Polka Pop') + ' bottle';
-        }
+        /* keep hero image static – do not swap on hover */
       };
 
       whyCards.forEach(card => {

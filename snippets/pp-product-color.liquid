@@ -295,19 +295,21 @@
       });
     }
 
-    /* 6. Reorder DOM: price → lead wrap → pack label row → option row → purchase row */
-    var anchor=price||lead;
-    if(!anchor) return;
-    var parent=anchor.parentNode;
-    var refNode=anchor.nextSibling;
-    var elems=[];
-    if(price) elems.push(price);
-    if(lead&&lead.closest(‘.pp-lead-wrap’)) elems.push(lead.closest(‘.pp-lead-wrap’));
+    /* 6. Reorder DOM: lead wrap → price → pack label row → option row → purchase row */
+    var leadWrap=lead&&lead.closest(‘.pp-lead-wrap’);
     var plr=panel.querySelector(‘.pp-pack-label-row’);
+    var elems=[];
+    if(leadWrap) elems.push(leadWrap);
+    if(price) elems.push(price);
     if(plr) elems.push(plr);
     if(optionRow) elems.push(optionRow);
     if(purchaseRow) elems.push(purchaseRow);
-    elems.forEach(function(el){parent.appendChild(el);});
+    if(elems.length<2) return;
+    var refNode=elems[0];
+    for(var i=1;i<elems.length;i++){
+      refNode.parentNode.insertBefore(elems[i],refNode.nextSibling);
+      refNode=elems[i];
+    }
   }
   if(document.readyState===’loading’){document.addEventListener(‘DOMContentLoaded’,function(){applyColors();rearrangePanel();});}else{applyColors();rearrangePanel();}
   setTimeout(applyColors,500);

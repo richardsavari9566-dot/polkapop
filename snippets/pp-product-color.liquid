@@ -297,7 +297,16 @@
       });
     }
 
-    /* 6. Reorder DOM: lead wrap → price → pack label row → option row → purchase row */
+    /* 6. Move Quick Commerce below accordion */
+    var qc=panel.querySelector('.quick-commerce');
+    var accordion=panel.querySelector('.pdp-detail-accordion');
+    if(qc&&accordion&&accordion.nextSibling){
+      accordion.parentNode.insertBefore(qc,accordion.nextSibling);
+    } else if(qc&&accordion){
+      accordion.parentNode.appendChild(qc);
+    }
+
+    /* 7. Reorder DOM: lead wrap → price → pack label row → option row → purchase row */
     var leadWrap=lead&&lead.closest(‘.pp-lead-wrap’);
     var plr=panel.querySelector(‘.pp-pack-label-row’);
     var elems=[];

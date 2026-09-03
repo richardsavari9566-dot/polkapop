@@ -115,6 +115,32 @@
 #pp-pdp .benefit{border-color:{{ pc_soft }} !important}
 .pp-ptr-dots button.on{background:{{ pc }} !important}
 #pp-pdp .product-editorial-intro{display:none !important}
+/* Notify Me button + rearranged purchase layout */
+#pp-pdp .purchase-row{display:grid !important;grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:10px !important;align-items:stretch}
+#pp-pdp .purchase-row .qty{grid-column:1;grid-row:1}
+#pp-pdp .purchase-row .pp-notify-btn{grid-column:2;grid-row:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:transparent;border:2px solid {{ pc }};color:{{ pc }};border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;padding:0 18px;font-family:inherit;transition:background .2s,color .2s}
+#pp-pdp .purchase-row .pp-notify-btn:hover{background:{{ pc_soft }}}
+#pp-pdp .purchase-row .pp-notify-btn svg{width:16px;height:16px;fill:currentColor}
+#pp-pdp .purchase-row .primary.add-cart{grid-column:1;grid-row:2}
+#pp-pdp .purchase-row #buyNow{grid-column:2;grid-row:2;margin-top:0 !important;width:auto !important}
+/* Notify Me modal */
+.pp-notify-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.pp-notify-overlay.is-open{opacity:1;pointer-events:auto}
+.pp-notify-modal{background:#fff;border-radius:20px;padding:36px 32px;max-width:420px;width:90%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.18);transform:translateY(20px);transition:transform .25s}
+.pp-notify-overlay.is-open .pp-notify-modal{transform:translateY(0)}
+.pp-notify-modal .pp-nm-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;line-height:1;padding:4px}
+.pp-notify-modal .pp-nm-close:hover{color:#333}
+.pp-notify-modal .pp-nm-icon{width:48px;height:48px;border-radius:50%;background:{{ pc_soft }};display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.pp-notify-modal .pp-nm-icon svg{width:24px;height:24px;fill:{{ pc }}}
+.pp-notify-modal h3{font-size:20px;font-weight:800;color:#1a1a1a;text-align:center;margin:0 0 6px;letter-spacing:-.02em}
+.pp-notify-modal p{font-size:14px;color:#666;text-align:center;margin:0 0 20px;line-height:1.5}
+.pp-notify-modal .pp-nm-input{width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s;box-sizing:border-box}
+.pp-notify-modal .pp-nm-input:focus{border-color:{{ pc }}}
+.pp-notify-modal .pp-nm-submit{width:100%;margin-top:12px;padding:14px;background:{{ pc }};color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+.pp-notify-modal .pp-nm-submit:hover{background:{{ pc_deep }}}
+.pp-notify-modal .pp-nm-success{text-align:center;padding:20px 0}
+.pp-notify-modal .pp-nm-success svg{width:48px;height:48px;margin-bottom:12px}
+.pp-notify-modal .pp-nm-success h3{margin-bottom:4px}
 </style>
 <script>
 (function(){
@@ -131,7 +157,54 @@
     if(nb){nb.style.setProperty('background',pc,'important');nb.style.setProperty('color',lt,'important');}
     document.querySelectorAll('#pp-pdp .option.active').forEach(function(o){o.style.setProperty('border-color',pc,'important');o.style.setProperty('box-shadow','inset 0 0 0 1px '+pc,'important');o.style.setProperty('background',light,'important');});
   }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',applyColors);}else{applyColors();}
+  function rearrangeButtons(){
+    var row=document.querySelector('#pp-pdp .purchase-row');
+    var buyNow=document.querySelector('#pp-pdp #buyNow');
+    var qty=row&&row.querySelector('.qty');
+    if(!row||!buyNow||!qty) return;
+    buyNow.style.marginTop='0';
+    row.appendChild(buyNow);
+    var notifyBtn=document.createElement('button');
+    notifyBtn.type='button';
+    notifyBtn.className='pp-notify-btn';
+    notifyBtn.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Notify Me';
+    qty.insertAdjacentElement('afterend',notifyBtn);
+    var overlay=document.createElement('div');
+    overlay.className='pp-notify-overlay';
+    overlay.innerHTML='<div class="pp-notify-modal">'+
+      '<button class="pp-nm-close" aria-label="Close">&times;</button>'+
+      '<div class="pp-nm-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>'+
+      '<h3>Get Notified</h3>'+
+      '<p>Enter your email and we’ll let you know about restocks, new flavours and exclusive drops.</p>'+
+      '<form class="pp-nm-form" method="post" action="/contact#contact_form">'+
+        '<input type="hidden" name="form_type" value="customer">'+
+        '<input type="hidden" name="utf8" value="✓">'+
+        '<input type="hidden" name="contact[tags]" value="notify-me,'+('{{ product.title }}'.replace(/'/g,''))+'">'+
+        '<input class="pp-nm-input" type="email" name="contact[email]" placeholder="Enter your email" required>'+
+        '<button class="pp-nm-submit" type="submit">Notify Me</button>'+
+      '</form>'+
+    '</div>';
+    document.body.appendChild(overlay);
+    notifyBtn.addEventListener('click',function(){overlay.classList.add('is-open');});
+    overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
+    overlay.addEventListener('click',function(e){if(e.target===overlay) overlay.classList.remove('is-open');});
+    var form=overlay.querySelector('.pp-nm-form');
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var email=form.querySelector('input[type="email"]').value;
+      var fd=new FormData(form);
+      fetch('/contact#contact_form',{method:'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(){
+        overlay.querySelector('.pp-notify-modal').innerHTML='<button class="pp-nm-close" aria-label="Close">&times;</button>'+
+          '<div class="pp-nm-success">'+
+            '<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="'+light+'"/><path d="M15 24l6 6 12-12" stroke="'+pc+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+            '<h3>You’re on the list!</h3>'+
+            '<p style="color:#666;font-size:14px">We’ll email you at <strong>'+email+'</strong> with updates.</p>'+
+          '</div>';
+        overlay.querySelector('.pp-nm-close').addEventListener('click',function(){overlay.classList.remove('is-open');});
+      }).catch(function(){form.submit();});
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){applyColors();rearrangeButtons();});}else{applyColors();rearrangeButtons();}
   setTimeout(applyColors,500);
   var pdpEl=document.querySelector('#pp-pdp');
   if(pdpEl&&pdpEl.previousSibling&&pdpEl.previousSibling.nodeType===3){pdpEl.parentNode.removeChild(pdpEl.previousSibling);}
